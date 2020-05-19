@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>BUI 多页开发标准页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/bui.css" />
+    <link rel="stylesheet" href="css/common.css" />
+</head>
+<body>
+<div class="bui-page bui-box-vertical">
+    <header>
+        <!-- 固定顶部区 -->
+        <div class="bui-bar">
+            <div class="bui-bar-left">
+                <a class="bui-btn"><i class="icon-back"></i>返回</a>
+            </div>
+            <div class="bui-bar-main">BUI标准页面</div>
+<!--            <div class="bui-bar-right"></div>-->
+        </div>
+    </header>
+    <main>
+        <ul class="bui-list">
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="primary-reverse">【系统】</span>系统向您发放400碳币</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="warning-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="primary-reverse">【系统】</span>系统向您发放400碳币</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="warning-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="primary-reverse">【系统】</span>系统向您发放400碳币</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="warning-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="primary-reverse">【系统】</span>系统向您发放400碳币</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="warning-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+            <li class="bui-btn">
+                <h3 class="item-title"><span class="success-reverse">【消费】</span>兑换飞影国际电影城优惠券</h3>
+                <p class="item-text">2018-02-02 15:04</p>
+            </li>
+        </ul>
+    </main>
+<!--    <footer>-->
+<!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
+<!--    </footer>-->
+</div>
+<script src="lib/zepto.js"></script>
+<script src="lib/bui.js"></script>
+<script src="lib/config.js"></script>
+<script>
+        bui.ready(function() {
+           bui.ajax({
+               url: "user/login",
+               data: {"fLoginname":"hahaha","fPassword":"ha112233","deviceType":"android"},
+               method:'POST',
+               }).then(function(res){
+                   console.log(res)
+               },function(res,status){
+                   console.log(status);
+                   // status = "timeout" || "error" || "abort", "parsererror"
+               });
+        });
+    </script>
+</body>
+</html>
