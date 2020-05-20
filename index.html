@@ -16,7 +16,7 @@
                 <a class="bui-btn"><i class="icon-back"></i>返回</a>
             </div>
             <div class="bui-bar-main">BUI标准页面</div>
-<!--            <div class="bui-bar-right"></div>-->
+            <div class="bui-bar-right"></div>
         </div>
     </header>
     <main>
@@ -85,11 +85,13 @@
 <script>
         bui.ready(function() {
            bui.ajax({
+               baseUrl:"http://116.236.149.165:8090/SubstationWEBV2/",
+               headers:{},
                url: "user/login",
                data: {"fLoginname":"hahaha","fPassword":"ha112233","deviceType":"android"},
                method:'POST',
                }).then(function(res){
-                   console.log(res)
+                   console.log(res);
                },function(res,status){
                    console.log(status);
                    // status = "timeout" || "error" || "abort", "parsererror"

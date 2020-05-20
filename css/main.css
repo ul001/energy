@@ -1,0 +1,65 @@
+body main{
+    background:#efeff4;
+}
+
+.content-block{
+    width:94%;
+    margin:0 auto;
+}
+
+.bui-nav-icon{
+    border-radius:.1rem;
+}
+
+.bui-fluid-3>li, .bui-fluid-3>[class*=bui-btn], .bui-fluid-3>[class*=span], .bui-fluid-3>* {
+    border-radius: .1rem;
+}
+
+.icon-over_01{
+    background-image:url(../img/over_01.png);
+    background-size:100%;
+}
+.icon-over_02{
+    background-image:url(../img/over_02.png);
+    background-size:100%;
+}
+.icon-over_03{
+    background-image:url(../img/over_03.png);
+    background-size:100%;
+}
+.icon-over_04{
+    background-image:url(../img/over_04.png);
+    background-size:100%;
+}
+.icon-over_05{
+    background-image:url(../img/over_05.png);
+    background-size:100%;
+}
+.icon-over_06{
+    background-image:url(../img/over_06.png);
+    background-size:100%;
+}
+.icon-over_07{
+    background-image:url(../img/over_07.png);
+    background-size:100%;
+}
+.icon-over_08{
+    background-image:url(../img/over_08.png);
+    background-size:100%;
+}
+.icon-over_09{
+    background-image:url(../img/over_09.png);
+    background-size:100%;
+}
+.icon-over_10{
+    background-image:url(../img/over_10.png);
+    background-size:100%;
+}
+.icon-over_11{
+    background-image:url(../img/over_11.png);
+    background-size:100%;
+}
+.icon-over_12{
+    background-image:url(../img/over_12.png);
+    background-size:100%;
+}
