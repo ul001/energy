@@ -83,20 +83,20 @@
 <script src="lib/bui.js"></script>
 <script src="lib/config.js"></script>
 <script>
-        bui.ready(function() {
-           bui.ajax({
-               baseUrl:"http://116.236.149.165:8090/SubstationWEBV2/",
-               headers:{},
-               url: "user/login",
-               data: {"fLoginname":"hahaha","fPassword":"ha112233","deviceType":"android"},
-               method:'POST',
-               }).then(function(res){
-                   console.log(res);
-               },function(res,status){
-                   console.log(status);
-                   // status = "timeout" || "error" || "abort", "parsererror"
-               });
-        });
-    </script>
+    bui.ready(function() {
+       bui.ajax({
+           baseUrl:"http://116.236.149.165:8090/SubstationWEBV2/",
+           headers:{},
+           url: "user/login",
+           data: {"fLoginname":"hahaha","fPassword":"ha112233","deviceType":"android"},
+           method:'POST',
+           }).then(function(res){
+               console.log(res);
+           },function(res,status){
+               console.log(status);
+               // status = "timeout" || "error" || "abort", "parsererror"
+           });
+    });
+</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-    <title>BUI 多页开发标准页面</title>
+    <title>能耗系统</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="lib/bui.css"/>
@@ -15,15 +15,15 @@
         <!-- 固定顶部区 -->
         <div class="bui-bar">
             <div class="bui-bar-left">
-                <a class="bui-btn"><i class="icon-back"></i>返回</a>
+                <a class="bui-btn"><i class="icon-back"></i></a>
             </div>
             <div class="bui-bar-main">能耗系统</div>
-            <div class="bui-bar-right"></div>
+            <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
         </div>
     </header>
     <main>
         <div class="content-block">
-            <div class="subtitle">能耗分析</div>
+            <div class="subtitle boldFont">能耗分析</div>
             <ul class="bui-nav-icon bui-fluid-3">
                 <li class="bui-btn">
                     <div class="bui-icon round"><i class="icon-over_01"></i></div>
@@ -60,7 +60,7 @@
             </ul>
         </div>
         <div  class="content-block">
-            <div class="subtitle">建筑分析</div>
+            <div class="subtitle boldFont">建筑分析</div>
             <ul class="bui-nav-icon bui-fluid-3">
                 <li class="bui-btn">
                     <div class="bui-icon round"><i class="icon-over_09"></i></div>
@@ -86,8 +86,33 @@
     <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
     <!--    </footer>-->
 </div>
+<!-- 右边自定义对话框结构 -->
+<div id="dialogRight" class="bui-dialog" style="display:none;">
+    <!-- 搜索条控件结构 -->
+    <div id="searchbar" class="bui-searchbar bui-box">
+        <div class="span1">
+            <div class="bui-input">
+                <i class="icon-search"></i>
+                <input type="search" value="" placeholder="请输入关键字"/>
+            </div>
+        </div>
+        <div class="btn-search">搜索</div>
+    </div>
+    <div class="bui-dialog-main">
+        <div id="scrollList" class="bui-scroll">
+            <div class="bui-scroll-head"></div>
+            <div class="bui-scroll-main">
+                <ul class="bui-list bui-list-thumbnail">
+                </ul>
+            </div>
+            <div class="bui-scroll-foot"></div>
+        </div>
+    </div>
+</div>
 <script src="lib/zepto.js"></script>
 <script src="lib/bui.js"></script>
+<script src="lib/language.js"></script>
 <script src="lib/config.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
