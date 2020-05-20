@@ -63,3 +63,24 @@ body main{
     background-image:url(../img/over_12.png);
     background-size:100%;
 }
+
+#dialogRight {
+    left: 20%;
+}
+
+#btnOpenFilter{
+    font-size:.4rem;
+}
+
+#searchbar{
+    background:#02A8A6;
+    color:#fff;
+    padding:.3rem .2rem;
+}
+
+.icon-sub{
+    background-image:url(../img/showSubList.png);
+    background-size:100%;
+    width: .45rem;
+    height: .45rem;
+}
