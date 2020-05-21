@@ -66,7 +66,33 @@
     border-bottom: 0.08rem solid #00aca8;
     padding-bottom: .12rem;
 }
-
 #mainsearchbar{
-    margin:.1rem;
+    margin:0 .1rem;
+}
+
+#mainScrollList.bui-scroll .bui-scroll-main{
+    background-color:initial;
+}
+
+#mainScrollList .bui-list .liBox{
+    margin:.15rem;
+    background-color:#fff;
+    border-radius: 0.2rem;
+}
+
+#mainScrollList .bui-list .bui-fluid-4{
+    border-radius: 0.2rem;
+}
+
+#mainScrollList .bui-list .bui-fluid-4>li{
+    width:30%;
+    float:left;
+    border-radius: 0.2rem;
+}
+
+.icon-biaozhi{
+    background-image:url(../img/energy_12.png);
+    background-size:100%;
+    width: .3rem;
+    height: .35rem;
 }

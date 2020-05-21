@@ -9,8 +9,9 @@ bui.ready(function() {
         buttons: []
     });
 
+    var saveBuild;
     try{
-        var saveBuild = JSON.parse(storage.get("build"));
+        saveBuild = JSON.parse(storage.get("build"));
         $(".bui-bar-main").html(saveBuild.name);
     }catch(e){
         uiDialogRight.open();
@@ -28,83 +29,117 @@ bui.ready(function() {
         $(this).addClass("selected").siblings().removeClass("selected");
     });
 
-    var uiSearchbar = bui.searchbar({
-        id: "#miansearchbar",
-        onInput: function(e, keyword) {
-            //实时搜索
-            // console.log(++n)
-        },
-        onRemove: function(e, keyword) {
-            uiList.empty();
-            // 重新初始化数据
-            uiList.init({
-                page: 1,
-                data: {
-                    "keyWord": keyword
-                }
-            });
-        },
-        callback: function(e, keyword) {
-            if (uiList) {
-                //点击搜索清空数据
-                uiList.empty();
+    $($(".top-class li")[0]).addClass("active");
+    $($(".secord-class .bui-btn")[0]).addClass("selected");
+
+    if(saveBuild!=null){
+        getMainData(saveBuild.id);
+    }
+
+    function getMainData(buildId){
+        var uiMianSearchbar = bui.searchbar({
+            id: "#mainsearchbar",
+            onInput: function(e, keyword) {
+                //实时搜索
+                // console.log(++n)
+            },
+            onRemove: function(e, keyword) {
+                uiMainList.empty();
                 // 重新初始化数据
-                uiList.init({
+                uiMainList.init({
                     page: 1,
                     data: {
                         "keyWord": keyword
                     }
                 });
+            },
+            callback: function(e, keyword) {
+                if (uiMainList) {
+                    //点击搜索清空数据
+                    uiMainList.empty();
+                    // 重新初始化数据
+                    uiMainList.init({
+                        page: 1,
+                        data: {
+                            "keyWord": keyword
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
 
-    var uiList = bui.list({
-        id: "#mainScrollList",
-        url: "/api/app/AppBuild",
-        pageSize: 15, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
-        data: {},
-        //如果分页的字段名不一样,通过field重新定义
-        field: {
-            page: "pageIndex",
-            size: "pageSize",
-            data: "data"
-        },
-        callback: function(e) {
-            // e.target 为你当前点击的元素
-            // e.currentTarget 为你当前点击的handle 整行
-            var buildId = $(e.currentTarget).attr("data-id");
-            var buildName = $(e.currentTarget).attr("data-name");
-            var clickBuild = {id:buildId,name:buildName};
-            storage.set("build", JSON.stringify(clickBuild));
-            $(".bui-bar-main").html(buildName);
-            uiDialogRight.close();
-        },
-        template: function(data) {
-            var html = "";
-            data.forEach(function(el, index) {
-                html += `<li class="bui-btn bui-box" data-id="${el.id}" data-name="${el.name}">
-                             <div class="icon"><i class="icon-sub"></i></div>
-                             <div class="span1">${el.name}</div>
-                         </li>`
-            });
-            return html;
-        },
-        onBeforeRefresh: function() {
-            console.log("brefore refresh")
-        },
-        onBeforeLoad: function() {
-            console.log("brefore load")
-        },
-        onRefresh: function() {
-            // 刷新以后执行
-            console.log("refreshed")
-        },
-        onLoad: function() {
-            // 刷新以后执行
-            console.log("loaded")
-        }
-    });
+        var uiMainList = bui.list({
+            id: "#mainScrollList",
+            url: "/api/app/AppCompareData",
+            pageSize: 10, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
+            data: {buildId:buildId,
+                code:$(".secord-class .bui-btn.selected").attr("data-value"),
+                type:$(".top-class .active").attr("data-type")},
+            //如果分页的字段名不一样,通过field重新定义
+            field: {
+                page: "pageIndex",
+                size: "pageSize",
+                data: "data"
+            },
+            callback: function(e) {
+                // e.target 为你当前点击的元素
+                // e.currentTarget 为你当前点击的handle 整行
+                var buildId = $(e.currentTarget).attr("data-id");
+                var buildName = $(e.currentTarget).attr("data-name");
+                var clickBuild = {id:buildId,name:buildName};
+                storage.set("build", JSON.stringify(clickBuild));
+                $(".bui-bar-main").html(buildName);
+                uiDialogRight.close();
+            },
+            template: function(data) {
+                var html = "";
+                data.forEach(function(el, index) {
+                    html += `<li class="bui-box-align-middle liBox" data-value="">
+                                 <div class="span1">
+                                     <div class="bui-box-align-middle">
+                                         <div class="icon"><i class="icon-biaozhi"></i></div>
+                                         <div class="span1">主进线柜</div>
+                                         <div class="item-text">单位：kW·h</div>
+                                     </div>
+                                     <ul class="bui-nav-icon bui-fluid-4 span1">
+                                         <li class="bui-btn">
+                                             <div class="bui-icon primary"><i class="icon-success"></i></div>
+                                             <div class="item-title">主进线柜</div>
+                                             <div class="item-text">单位：kW·h</div>
+                                         </li>
+                                         <li class="bui-btn">
+                                             <div class="bui-icon success"><i class="icon-success"></i></div>
+                                             <div class="item-title"> 标题文字 </div>
+                                             <div class="item-text">单位：kW·h</div>
+                                         </li>
+                                         <li class="bui-btn">
+                                             <div class="bui-icon danger"><i class="icon-success"></i></div>
+                                             <div class="item-title"> 标题文字 </div>
+                                             <div class="item-text"> 描述信息 </div>
+                                         </li>
+                                     </ul>
+                                 </div>
+                                 <i class="icon-listright"></i>
+                             </li>`;
+                });
+                return html;
+            },
+            onBeforeRefresh: function() {
+                console.log("brefore refresh")
+            },
+            onBeforeLoad: function() {
+                console.log("brefore load")
+            },
+            onRefresh: function() {
+                // 刷新以后执行
+                console.log("refreshed")
+            },
+            onLoad: function() {
+                // 刷新以后执行
+                console.log("loaded")
+            }
+        });
+    }
 
     var uiSearchbar = bui.searchbar({
         id: "#searchbar",
@@ -137,6 +172,10 @@ bui.ready(function() {
         }
     });
 
+    energyObj.getDataByAjax("GET","/api/app/AppBuild",{pageIndex:1,pageSize:10},function(data){
+        console.log(data);
+    });
+
     var uiList = bui.list({
         id: "#scrollList",
         url: "/api/app/AppBuild",
@@ -157,6 +196,7 @@ bui.ready(function() {
             storage.set("build", JSON.stringify(clickBuild));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
+            getMainData(buildId);
         },
         template: function(data) {
             var html = "";
