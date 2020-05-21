@@ -50,12 +50,12 @@ bui.ready(function () {
 
 
 
-    function initBar($container, time, j, f, p, g, barData, sum, y) {
+    function initBar(barData) {
         var bar = echarts.init(document.getElementById('pie'));
         var option = {
             title: [{
                 text: Operation['ui_donut'],
-                subtext: y == "￥" ? (Operation['ui_totalsum'] + '：' + y + sum) : (Operation['ui_totalsum'] + '：' + sum + y),
+                // subtext: y == "￥" ? (Operation['ui_totalsum'] + '：' + y + sum) : (Operation['ui_totalsum'] + '：' + sum + y),
                 textStyle: {
                     fontWeight: 'small'
                 },
@@ -183,7 +183,7 @@ bui.ready(function () {
                         normal: {
                             position: 'inner',
                             formatter: function (data) {
-                                return data.name + '\n' + data.value + '\n' + '(' + data.percent.toFixed(1) + '%)';
+                                return data.name + '\n' + data.value + '\n' + '(' + data.percent.toFixed(2) + '%)';
                             }
                         }
                     },
@@ -195,19 +195,28 @@ bui.ready(function () {
         bar.setOption(option);
     }
 
-    initBar($("#lineChart"), ["05-01"], ["2.00"], ["4.00"], ["3.00"], ["1.00"], [{
-        value: "0",
-        name: "尖"
-    }, {
-        value: "4356",
-        name: "峰"
-    }, {
-        value: "6902",
-        name: "平"
-    }, {
-        value: "5554",
-        name: "谷"
-    }], 1682, 'kW·h');
+    energyObj.getDataByAjax("GET", "/api/app/AppStandardCoal", {
+        buildId: '000001G003',
+        reportType: 'YY',
+        time: '2019-02-01'
+    }, function (data) {
+        console.log(data);
+        initBar(data);
+    });
+
+    // initBar($("#lineChart"), ["05-01"], ["2.00"], ["4.00"], ["3.00"], ["1.00"], [{
+    //     value: "0",
+    //     name: "尖"
+    // }, {
+    //     value: "4356",
+    //     name: "峰"
+    // }, {
+    //     value: "6902",
+    //     name: "平"
+    // }, {
+    //     value: "5554",
+    //     name: "谷"
+    // }], 1682, 'kW·h');
 
 
     var uiList = bui.list({
