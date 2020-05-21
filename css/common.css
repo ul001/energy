@@ -2,6 +2,20 @@
     background: #02A8A6;
 }
 
+body main{
+    background:#efeff4;
+}
+
 .boldFont{
     font-weight: bolder;
+}
+
+.bui-bar-main{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+.bui-loading{
+    position:fixed;
 }
