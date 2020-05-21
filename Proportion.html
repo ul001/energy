@@ -1,21 +1,21 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>BUI示例</title>
     <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.css">
-    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/zepto.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/buijs/lib/latest/bui.js"></script>
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="lib/bui.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/Proportion.css" />
     <style></style>
 </head>
 
 <body>
     <style>
-        .page-icon [class^=icon-] {
-            font-size: .4rem;
+        .page-icon [class^="icon-"] {
+            font-size: 0.4rem;
         }
     </style>
     <div class="bui-page page-icon">
@@ -26,23 +26,88 @@
                     <a class="bui-btn"><i class="icon-back"></i>返回</a>
                 </div>
                 <div class="bui-bar-main">变电所名称</div>
-                <div class="bui-bar-right"></div>
+                <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
             </div>
         </header>
         <main>
             <div class="bui-fluid-space-5">
-                <div class="span1"><input type="radio" name="tag" class="bui-tag" uncheck="标签1" check="标签1"
-                        value="tag1"></div>
-                <div class="span1"><input type="radio" name="tag" class="bui-tag" uncheck="标签2" check="标签2"
-                        value="tag2"></div>
-                <div class="span1"><input type="radio" name="tag" class="bui-tag" uncheck="标签3" check="标签3"
-                        value="tag3"></div>
+                <button class="span1 button btn_active">日</button>
+                <button class="span1 button">月</button>
+                <button class="span1 button">年</button>
+                <!-- <div class="span1">
+            <input
+              type="radio"
+              name="tag"
+              class="bui-tag"
+              uncheck="日"
+              check="日"
+              value="tag1"
+            />
+          </div>
+          <div class="span1">
+            <input
+              type="radio"
+              name="tag"
+              class="bui-tag"
+              uncheck="月"
+              check="月"
+              value="tag2"
+            />
+          </div>
+          <div class="span1">
+            <input
+              type="radio"
+              name="tag"
+              class="bui-tag"
+              uncheck="年"
+              check="年"
+              value="tag3"
+            />
+          </div> -->
+                <span class="down"></span>
+                <div class="dataTime">
+                    <input type="text" id="datepicker_input" readonly
+                        class="bui-input bui-box-center bui-box-align-middle" />
+                </div>
+                <span class="pull"></span>
+                <!-- <i class="icon-listright"></!-->
+            </div>
+            <div id="pie" class="pie" style="-webkit-user-select: none; position: relative;"></div>
+            <!-- 右边自定义对话框结构 -->
+            <div id="dialogRight" class="bui-dialog" style="display:none;">
+                <div class="bui-dialog-head">
+                    <!-- 搜索条控件结构 -->
+                    <div id="searchbar" class="bui-searchbar bui-box">
+                        <div class="span1">
+                            <div class="bui-input">
+                                <i class="icon-search"></i>
+                                <input id="searchInput" type="search" value="" placeholder=""
+                                    data-placeholder="ui_searchTip" />
+                            </div>
+                        </div>
+                        <div class="btn-search" data-i18n="ui_search"></div>
+                    </div>
+                </div>
+                <div class="bui-dialog-main">
+                    <div id="scrollList" class="bui-scroll">
+                        <div class="bui-scroll-head"></div>
+                        <div class="bui-scroll-main">
+                            <ul class="bui-list bui-list-thumbnail">
+                            </ul>
+                        </div>
+                        <div class="bui-scroll-foot"></div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
-    <script>
-    </script>
+    <script src="lib/zepto.js"></script>
+    <script src="lib/bui.js"></script>
+    <script src="lib/language.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="lib/echarts.min.js"></script>
+    <script src="js/Proportion.js"></script>
 </body>
 
 </html>
