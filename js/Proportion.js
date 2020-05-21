@@ -1,5 +1,9 @@
 bui.ready(function () {
     var storage = bui.storage();
+    var time = '';
+    var reportType = 'DD';
+    var buildId;
+    // time = new Date(time.replace(/\-/g, "\/"));
     // 带按钮
     var uiPickerdate = bui.pickerdate({
         handle: "#datepicker_input",
@@ -15,10 +19,31 @@ bui.ready(function () {
         callback: function (e) {
             console.log(e.target)
             console.log(this.value())
-
+            time = this.value();
+            initData();
         },
         // 如果不需要按钮,设置为空
         // buttons: [{name:"取消"}]
+    });
+
+    $(".down").click(function () {
+        var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+        var preDate = new Date(selectDate.getTime() - 24 * 60 * 60 * 1000);
+        $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)) + "-" + (preDate.getDate() < 10 ? ("0" + preDate.getDate()) : (preDate.getDate())));
+        initData();
+    });
+
+    $(".pull").click(function () {
+        var d = new Date();
+        var nowDate = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate());
+        var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+        if (selectDate < nowDate) {
+            var nextDate = new Date(selectDate.getTime() + 24 * 60 * 60 * 1000);
+            $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)) + "-" + (nextDate.getDate() < 10 ? ("0" + nextDate.getDate()) : (nextDate.getDate())));
+            initData();
+        } else {
+            return;
+        }
     });
 
     // 右边出来对话框
@@ -48,6 +73,13 @@ bui.ready(function () {
         $(this).addClass("selected").siblings().removeClass("selected");
     });
 
+    //切换按钮 日月年
+    $(".dateBtn").on("click", function () {
+        var obj = $(this);
+        $(this).addClass('btn_active').siblings("button").removeClass('btn_active');
+        reportType = $(this).val();
+        initData();
+    });
 
 
     function initBar(barData) {
@@ -195,15 +227,18 @@ bui.ready(function () {
         bar.setOption(option);
     }
 
-    energyObj.getDataByAjax("GET", "/api/app/AppStandardCoal", {
-        buildId: '000001G003',
-        reportType: 'YY',
-        time: '2019-02-01'
-    }, function (data) {
-        console.log(data);
-        initBar(data);
-    });
+    function initData() {
+        energyObj.getDataByAjax("GET", "/api/app/AppStandardCoal", {
+            buildId: buildId,
+            reportType: reportType,
+            time: time
+        }, function (data) {
+            console.log(data);
+            initBar(data);
+        });
+    }
 
+    initData();
     // initBar($("#lineChart"), ["05-01"], ["2.00"], ["4.00"], ["3.00"], ["1.00"], [{
     //     value: "0",
     //     name: "尖"
@@ -236,7 +271,7 @@ bui.ready(function () {
         callback: function (e) {
             // e.target 为你当前点击的元素
             // e.currentTarget 为你当前点击的handle 整行
-            var buildId = $(e.currentTarget).attr("data-id");
+            buildId = $(e.currentTarget).attr("data-id");
             var buildName = $(e.currentTarget).attr("data-name");
             var clickBuild = {
                 id: buildId,
