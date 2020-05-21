@@ -27,23 +27,84 @@ bui.ready(function () {
     });
 
     $(".down").click(function () {
-        var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
-        var preDate = new Date(selectDate.getTime() - 24 * 60 * 60 * 1000);
-        $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)) + "-" + (preDate.getDate() < 10 ? ("0" + preDate.getDate()) : (preDate.getDate())));
+        var type = $(".btn_active").val();
+        var d = new Date();
+        var selectDate;
+        var preDate;
+        if (type == 'DD') {
+            selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+            preDate = new Date(selectDate.getTime() - 24 * 60 * 60 * 1000);
+            $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)) + "-" + (preDate.getDate() < 10 ? ("0" + preDate.getDate()) : (preDate.getDate())));
+        } else if (type == 'MM') {
+            selectDate = new Date(($("#datepicker_input").val() + "-01").replace(/\-/g, "/"));
+            preDate = new Date(selectDate.setMonth(selectDate.getMonth() - 1));
+            $("#datepicker_input").val(
+                preDate.getFullYear() +
+                "-" +
+                (preDate.getMonth() < 9 ?
+                    "0" + (preDate.getMonth() + 1) :
+                    preDate.getMonth() + 1)
+            );
+        } else if (type == 'YY') {
+
+            selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+            if (selectDate < d) {
+                preDate = new Date(selectDate.getTime());
+                $("#datepicker_input").val(
+                    preDate.getFullYear() - 1
+                );
+            }
+        }
         initData();
     });
 
     $(".pull").click(function () {
+        var type = $(".btn_active").val();
+        var nextDate;
         var d = new Date();
-        var nowDate = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate());
-        var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
-        if (selectDate < nowDate) {
-            var nextDate = new Date(selectDate.getTime() + 24 * 60 * 60 * 1000);
-            $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)) + "-" + (nextDate.getDate() < 10 ? ("0" + nextDate.getDate()) : (nextDate.getDate())));
-            initData();
-        } else {
-            return;
+        var nowDate;
+        var selectDate;
+        if (type == 'DD') {
+            nowDate = new Date(d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate());
+            selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+            if (selectDate < nowDate) {
+                nextDate = new Date(selectDate.getTime() + 24 * 60 * 60 * 1000);
+                $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)) + "-" + (nextDate.getDate() < 10 ? ("0" + nextDate.getDate()) : (nextDate.getDate())));
+            } else {
+                return;
+            }
+        } else if (type == 'MM') {
+            nowDate = new Date(
+                d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + "01"
+            );
+            selectDate = new Date(
+                ($("#datepicker_input").val() + "-01").replace(/\-/g, "/")
+            );
+            if (selectDate < nowDate) {
+                nextDate = new Date(
+                    selectDate.setMonth(selectDate.getMonth() + 1)
+                );
+                $("#datepicker_input").val(
+                    nextDate.getFullYear() +
+                    "-" +
+                    (nextDate.getMonth() < 9 ?
+                        "0" + (nextDate.getMonth() + 1) :
+                        nextDate.getMonth() + 1)
+                );
+            } else {
+                return;
+            }
+        } else if (type == 'YY') {
+            // nowDate = new Date(d.getFullYear());
+            selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
+            if (selectDate < d) {
+                preDate = new Date(selectDate.getTime());
+                $("#datepicker_input").val(
+                    preDate.getFullYear() + 1
+                );
+            }
         }
+        initData();
     });
 
     // 右边出来对话框
@@ -65,6 +126,7 @@ bui.ready(function () {
     $('#btnOpenFilter').on("click", function () {
         uiDialogRight.open();
     });
+
     $(".top-class .span1").on("click", function () {
         $(this).addClass("active").siblings().removeClass("active");
     });
@@ -76,6 +138,35 @@ bui.ready(function () {
     //切换按钮 日月年
     $(".dateBtn").on("click", function () {
         var obj = $(this);
+        if (obj.val() == 'DD') {
+            uiPickerdate.formatValue("yyyy-MM-dd");
+            // 修改列数
+            uiPickerdate.cols({
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
+        } else if (obj.val() == 'MM') {
+            uiPickerdate.formatValue("yyyy-MM");
+            // 修改列数
+            uiPickerdate.cols({
+                date: "none",
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
+        } else {
+            // 弹出的时候,也不要显示对应的时分秒
+            uiPickerdate.formatValue("yyyy");
+            // cols 在初始化的时候设定, 不使用调用方法的方式
+            uiPickerdate.cols({
+                month: "none",
+                date: "none",
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
+        }
         $(this).addClass('btn_active').siblings("button").removeClass('btn_active');
         reportType = $(this).val();
         initData();
