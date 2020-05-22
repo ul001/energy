@@ -69,16 +69,34 @@ bui.ready(function () {
         if (obj.val() == "DD") {
             showtimeForElectSum = tool.initDate("YMD", new Date());
             uiPickerdate.formatValue("yyyy-MM-dd");
+            uiPickerdate.cols({
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
             uiPickerdate.value(showtimeForElectSum);
 
         } else if (obj.val() == "MM") {
             showtimeForElectSum = tool.initDate("YM", new Date());
             uiPickerdate.formatValue("yyyy-MM");
+            uiPickerdate.cols({
+                date: "none",
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
             uiPickerdate.value(showtimeForElectSum);
 
         } else {
             // 弹出的时候,也不要显示对应的时分秒
             uiPickerdate.formatValue("yyyy");
+            uiPickerdate.cols({
+                month: "none",
+                date: "none",
+                hour: "none",
+                minute: "none",
+                second: "none"
+            })
         }
         $(this)
             .addClass("btn_active")

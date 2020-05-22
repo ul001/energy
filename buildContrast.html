@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>建筑对比</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="lib/bui.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/buildContrast.css" />
+    <style></style>
+</head>
+
+<body>
+    <style>
+        .page-icon [class^="icon-"] {
+            font-size: 0.4rem;
+        }
+    </style>
+    <div class="bui-page page-icon">
+        <header>
+            <!-- 固定顶部区 -->
+            <div class="bui-bar">
+                <div class="bui-bar-left">
+                    <a class="bui-btn"><i class="icon-back"></i>返回</a>
+                </div>
+                <div class="bui-bar-main">变电所名称</div>
+                <!-- <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div> -->
+            </div>
+        </header>
+        <main>
+            <div class="bui-box">
+                <button class="span2 button dateBtn btn_active" id="DD" value="DD">日</button>
+                <button class="span2 button dateBtn" id="MM" value="MM">月</button>
+                <button class="span2 button dateBtn" id="YY" value="YY">年</button>
+                <span class="down span1" id="datePre"></span>
+                <div class="dataTime span5 bui-box-center">
+                    <input type="text" id="datepicker_input" readonly class="bui-input" />
+                </div>
+                <span class="pull span1" id="dateNext"></span>
+                <!-- <i class="icon-listright"></!-->
+            </div>
+            <div id="pie" class="pie" style="-webkit-user-select: none; position: relative;"></div>
+            <!-- 右边自定义对话框结构 -->
+            <div id="dialogRight" class="bui-dialog" style="display:none;">
+                <div class="bui-dialog-head">
+                    <!-- 搜索条控件结构 -->
+                    <div id="searchbar" class="bui-searchbar bui-box">
+                        <div class="span1">
+                            <div class="bui-input">
+                                <i class="icon-search"></i>
+                                <input id="searchInput" type="search" value="" placeholder=""
+                                    data-placeholder="ui_searchTip" />
+                            </div>
+                        </div>
+                        <div class="btn-search" data-i18n="ui_search"></div>
+                    </div>
+                </div>
+                <div class="bui-dialog-main">
+                    <div id="scrollList" class="bui-scroll">
+                        <div class="bui-scroll-head"></div>
+                        <div class="bui-scroll-main">
+                            <ul class="bui-list bui-list-thumbnail">
+                            </ul>
+                        </div>
+                        <div class="bui-scroll-foot"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="lib/zepto.js"></script>
+    <script src="lib/bui.js"></script>
+    <script src="lib/language.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="lib/echarts.min.js"></script>
+    <script src="js/buildContrast.js"></script>
+</body>
+
+</html>
