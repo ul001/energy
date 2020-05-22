@@ -23,21 +23,45 @@ bui.ready(function() {
 
     $(".top-class .span1").on("click", function() {
         $(this).addClass("active").siblings().removeClass("active");
+        uiMainList.empty();
+        // 重新初始化数据
+        uiMainList.init({
+            page: 1,
+            data: {
+                "keyWord": $("#mainSearchInput").val(),
+                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
+                "type":$(".top-class .active").attr("data-type"),
+            }
+        });
     });
 
     $(".secord-class .bui-btn").on("click", function() {
         $(this).addClass("selected").siblings().removeClass("selected");
+        uiMainList.empty();
+        // 重新初始化数据
+        uiMainList.init({
+            page: 1,
+            data: {
+                "keyWord": $("#mainSearchInput").val(),
+                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
+                "type":$(".top-class .active").attr("data-type"),
+            }
+        });
     });
 
     $($(".top-class li")[0]).addClass("active");
     $($(".secord-class .bui-btn")[0]).addClass("selected");
+
+    var uiMianSearchbar;
+
+    var uiMainList;
 
     if(saveBuild!=null){
         getMainData(saveBuild.id);
     }
 
     function getMainData(buildId){
-        var uiMianSearchbar = bui.searchbar({
+        uiMianSearchbar = bui.searchbar({
             id: "#mainsearchbar",
             onInput: function(e, keyword) {
                 //实时搜索
@@ -68,7 +92,7 @@ bui.ready(function() {
             }
         });
 
-        var uiMainList = bui.list({
+        uiMainList = bui.list({
             id: "#mainScrollList",
             url: "/api/app/AppCompareData",
             pageSize: 10, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
@@ -94,28 +118,74 @@ bui.ready(function() {
             template: function(data) {
                 var html = "";
                 data.forEach(function(el, index) {
-                    html += `<li class="bui-box-align-middle liBox" data-value="">
+                    var tongbi = "-";
+                    var yesVal = "-";
+                    var todayVal = "-";
+                    if(el.currentValue!=undefined){
+                        todayVal = el.currentValue;
+                    }
+                    if(el.beforeValue!=undefined){
+                        yesVal = el.beforeValue;
+                    }
+                    try{
+                        if(todayVal != "-" && yesVal != "-" && yesVal != 0){
+                            tongbi = (((el.currentValue-el.beforeValue)/el.beforeValue)*100).toFixed(2)+"%";
+                        }
+                    }catch(e){};
+                    var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
+                    var unitStr = "";
+                    var consumeType = "用能";
+                    switch(codeStr){
+                        case "01000":
+                            consumeType = "用电";
+                            unitStr = "kW·h";
+                            break;
+                        case "02000":
+                            consumeType = "用水";
+                            unitStr = "t";
+                            break;
+                        case "13000":
+                            consumeType = "发电";
+                            unitStr = "kW·h";
+                            break;
+                        case "03000":
+                            unitStr = "m³";
+                            break;
+                        case "40000":
+                            unitStr = "m³";
+                            break;
+                        case "05000":
+                            unitStr = "MJ";
+                            break;
+                        case "04000":
+                            unitStr = "MJ";
+                            break;
+                        case "20000":
+                            unitStr = "m³";
+                            break;
+                    }
+                    html += `<li class="bui-box-align-middle liBox" data-id="${el.id}">
                                  <div class="span1">
                                      <div class="bui-box-align-middle">
                                          <div class="icon"><i class="icon-biaozhi"></i></div>
-                                         <div class="span1">主进线柜</div>
-                                         <div class="item-text">单位：kW·h</div>
+                                         <div class="span1 boldFont">${el.name}</div>
+                                         <div class="item-text">单位：${unitStr}</div>
                                      </div>
                                      <ul class="bui-nav-icon bui-fluid-4 span1">
-                                         <li class="bui-btn">
-                                             <div class="bui-icon primary"><i class="icon-success"></i></div>
-                                             <div class="item-title">主进线柜</div>
-                                             <div class="item-text">单位：kW·h</div>
+                                         <li class="bui-btn clearactive">
+                                             <div class="bui-icon"><i class="icon-today"></i></div>
+                                             <div class="item-title">今日${consumeType}</div>
+                                             <div class="item-text">${todayVal}</div>
                                          </li>
-                                         <li class="bui-btn">
-                                             <div class="bui-icon success"><i class="icon-success"></i></div>
-                                             <div class="item-title"> 标题文字 </div>
-                                             <div class="item-text">单位：kW·h</div>
+                                         <li class="bui-btn clearactive">
+                                             <div class="bui-icon"><i class="icon-yes"></i></div>
+                                             <div class="item-title">昨日同期</div>
+                                             <div class="item-text">${yesVal}</div>
                                          </li>
-                                         <li class="bui-btn">
-                                             <div class="bui-icon danger"><i class="icon-success"></i></div>
-                                             <div class="item-title"> 标题文字 </div>
-                                             <div class="item-text"> 描述信息 </div>
+                                         <li class="bui-btn clearactive">
+                                             <div class="bui-icon"><i class="icon-tongbi"></i></div>
+                                             <div class="item-title">同比</div>
+                                             <div class="item-text">${tongbi}</div>
                                          </li>
                                      </ul>
                                  </div>
@@ -170,10 +240,6 @@ bui.ready(function() {
                 });
             }
         }
-    });
-
-    energyObj.getDataByAjax("GET","/api/app/AppBuild",{pageIndex:1,pageSize:10},function(data){
-        console.log(data);
     });
 
     var uiList = bui.list({

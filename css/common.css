@@ -19,3 +19,12 @@ body main{
 .bui-loading{
     position:fixed;
 }
+
+[class*=bui-box]>[class^=span], [class*=bui-box]>li .span1{
+    white-space: nowrap;
+}
+
+.span1{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
