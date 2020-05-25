@@ -67,6 +67,10 @@
     left: 20%;
 }
 
+#dialogRight2 {
+    left: 20%;
+}
+
 .icon-sub {
     background-image: url(../img/showSubList.png);
     background-size: 100%;
@@ -112,4 +116,30 @@
     height: 90%;
     /* background: #fff; */
     background-color: white;
+}
+
+.top-class,
+.secord-class {
+    margin: .1rem;
+    background: #fff;
+}
+
+.secord-class img {
+    height: .8rem;
+}
+
+.secord-class li {
+    width: 24%;
+    display: inline-block;
+}
+
+.secord-class {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.secord-class li.selected {
+    color: #1187e7;
+    border-bottom: 0.08rem solid #00aca8;
+    padding-bottom: .12rem;
 }
