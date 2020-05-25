@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>趋势统计</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/bui.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/trendStatistics.css"/>
+    <link rel="stylesheet" href="css/buildContrast.css"/>
+</head>
+<body>
+<div class="bui-page bui-box-vertical">
+    <header>
+        <!-- 固定顶部区 -->
+        <div class="bui-bar">
+            <div class="bui-bar-left bui-bar-text">
+                <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i><span
+                        data-i18n="ui_back"></span></a>
+            </div>
+            <div class="bui-bar-main">同比分析</div>
+            <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
+        </div>
+    </header>
+    <main>
+        <div class="bui-box">
+            <button class="span2 button dateBtn btn_active" id="DD" value="DD">日</button>
+            <button class="span2 button dateBtn" id="MM" value="MM">月</button>
+            <button class="span2 button dateBtn" id="YY" value="YY">年</button>
+            <span class="down span1" id="datePre"></span>
+            <div class="dataTime span5 bui-box-center">
+                <input type="text" id="datepicker_input" readonly class="bui-input"/>
+            </div>
+            <span class="pull span1" id="dateNext"></span>
+        </div>
+        <div id="chartBox">
+
+        </div>
+        <div id="pieBox">
+
+        </div>
+    </main>
+    <!--    <footer>-->
+    <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
+    <!--    </footer>-->
+</div>
+<!-- 右边自定义对话框结构 -->
+<div id="dialogRight" class="bui-dialog" style="display:none;">
+    <div class="bui-dialog-head">
+        <!-- 搜索条控件结构 -->
+        <div id="searchbar" class="bui-searchbar bui-box">
+            <div class="span1">
+                <div class="bui-input">
+                    <i class="icon-search"></i>
+                    <input id="searchInput" type="search" value="" placeholder=""
+                           data-placeholder="ui_searchTip"/>
+                </div>
+            </div>
+            <div class="btn-search" data-i18n="ui_search"></div>
+        </div>
+        <ul class="bui-box-center top-class">
+            <li class="span1 bui-box-center" data-type="c"><img src="img/zhilu_h.png"><span
+                    data-i18n="slipRoad"></span></li>
+            <li class="span1 bui-box-center" data-type="i"><img src="img/fenxiang_h.png"><span
+                    data-i18n="subOption"></span></li>
+            <li class="span1 bui-box-center" data-type="r"><img src="img/quyu_h.png"><span
+                    data-i18n="area"></span></li>
+            <li class="span1 bui-box-center" data-type="d"><img src="img/bumen_h.png"><span
+                    data-i18n="department"></span></li>
+        </ul>
+        <ul class="bui-nav-icon secord-class">
+            <li class="bui-btn" data-value="01000">
+                <div class="bui-icon"><img src="img/dian.png"></div>
+                <div class="span1" data-i18n="">电</div>
+            </li>
+            <li class="bui-btn" data-value="02000">
+                <div class="bui-icon"><img src="img/shui.png"></div>
+                <div class="span1" data-i18n="">水</div>
+            </li>
+            <li class="bui-btn" data-value="13000">
+                <div class="bui-icon"><img src="img/solar.png"></div>
+                <div class="span1" data-i18n="">光伏</div>
+            </li>
+            <li class="bui-btn" data-value="03000">
+                <div class="bui-icon"><img src="img/ranqi.png"></div>
+                <div class="span1" data-i18n="">燃气</div>
+            </li>
+            <li class="bui-btn" data-value="40000">
+                <div class="bui-icon"><img src="img/zhengqi.png"></div>
+                <div class="span1" data-i18n="">蒸汽</div>
+            </li>
+            <li class="bui-btn" data-value="05000">
+                <div class="bui-icon"><img src="img/cold.png"></div>
+                <div class="span1" data-i18n="">冷量</div>
+            </li>
+            <li class="bui-btn" data-value="04000">
+                <div class="bui-icon"><img src="img/hot.png"></div>
+                <div class="span1" data-i18n="">热量</div>
+            </li>
+            <li class="bui-btn" data-value="20000">
+                <div class="bui-icon"><img src="img/air.png"></div>
+                <div class="span1" data-i18n="">压缩空气</div>
+            </li>
+        </ul>
+    </div>
+    <div class="bui-dialog-main">
+        <div id="scrollList" class="bui-scroll">
+            <div class="bui-scroll-head"></div>
+            <div class="bui-scroll-main">
+                <ul class="bui-list bui-list-thumbnail">
+                </ul>
+            </div>
+            <div class="bui-scroll-foot"></div>
+        </div>
+    </div>
+</div>
+<script src="lib/zepto.js"></script>
+<script src="lib/bui.js"></script>
+<script src="lib/echarts.min.js"></script>
+<script src="lib/language.js"></script>
+<script src="lib/config.js"></script>
+<script src="js/YoYAnalysis.js"></script>
+</body>
+</html>

@@ -232,7 +232,7 @@ bui.ready(function() {
             time:timeParam,
             ids:curid,
         };
-        energyObj.getDataByAjax("GET","/api/app/AppTrend/GetTrendData",param,function(data){
+        energyObj.getDataByAjax("GET","/api/app/AppTrend/GetCompareData",param,function(data){
             var html = "";
             var times = [];
             var yesVals = [];
@@ -259,70 +259,7 @@ bui.ready(function() {
                     yesVal = el.beforeValue;
                     yesVals.push(el.beforeValue);
                 }
-                try{
-                    if(todayVal != "-" && yesVal != "-" && yesVal != 0){
-                        tongbi = (((el.currentValue-el.beforeValue)/el.beforeValue)*100).toFixed(2)+"%";
-                    }
-                }catch(e){};
-                var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
-                var consumeType = "用能";
-                switch(codeStr){
-                    case "01000":
-                        consumeType = "用电";
-                        unitStr = "kW·h";
-                        break;
-                    case "02000":
-                        consumeType = "用水";
-                        unitStr = "t";
-                        break;
-                    case "13000":
-                        consumeType = "发电";
-                        unitStr = "kW·h";
-                        break;
-                    case "03000":
-                        unitStr = "m³";
-                        break;
-                    case "40000":
-                        unitStr = "m³";
-                        break;
-                    case "05000":
-                        unitStr = "MJ";
-                        break;
-                    case "04000":
-                        unitStr = "MJ";
-                        break;
-                    case "20000":
-                        unitStr = "m³";
-                        break;
-                }
-                html += `<li class="bui-box-align-middle liBox">
-                             <div class="span1">
-                                 <div class="bui-box-align-middle">
-                                     <div class="icon"><i class="icon-biaozhi"></i></div>
-                                     <div class="span1 boldFont">${timeStr}</div>
-                                     <div class="item-text">单位：${unitStr}</div>
-                                 </div>
-                                 <ul class="bui-nav-icon bui-fluid-4 span1">
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-today"></i></div>
-                                         <div class="item-title">${consumeType}</div>
-                                         <div class="item-text">${todayVal}</div>
-                                     </li>
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-yes"></i></div>
-                                         <div class="item-title">同期</div>
-                                         <div class="item-text">${yesVal}</div>
-                                     </li>
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-tongbi"></i></div>
-                                         <div class="item-title">同比</div>
-                                         <div class="item-text">${tongbi}</div>
-                                     </li>
-                                 </ul>
-                             </div>
-                         </li>`;
             });
-            $("#mainScrollList").html(html);
             var chartData = {
                 time:times,
                 data1:{name:dataName2,yesVals},
@@ -330,7 +267,21 @@ bui.ready(function() {
                 unit:unitStr
             };
             makeLine(chartData);
+            var pieData = {
+                data1:{name:dataName2,value:sum(yesVals).toFixed(2)},
+                data2:{name:dataName1,value:sum(todayVals).toFixed(2)},
+                unit:unitStr
+            };
+            makePie(pieData);
         });
+    }
+
+    function sum(arr) {
+        var s = 0;
+        for (var i=arr.length-1; i>=0; i--) {
+            s += arr[i];
+        }
+        return s;
     }
 
     function makeLine(chartData){
@@ -404,6 +355,36 @@ bui.ready(function() {
             ]
         };
         var myChart = echarts.init($("#chartBox").get(0));
+        myChart.setOption(option);
+    }
+
+    function makePie(pieData){
+        var option = {
+            color: ['#2EC7C9','#B6A2DE','#3CA4E4','#FFB980'],
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b} : {c} ({d}%)'
+            },
+            legend: {
+                left: 'left',
+                data:[pieData.data1.name, pieData.data2.name],
+            },
+            series: [
+                {
+                    type: 'pie',
+                    data:[{
+                            name: pieData.data1.name,
+                            value: pieData.data1.value,
+                        },
+                        {
+                            name: pieData.data2.name,
+                            value: pieData.data2.value,
+                        }
+                    ],
+                },
+            ]
+        };
+        var myChart = echarts.init($("#pieBox").get(0));
         myChart.setOption(option);
     }
 

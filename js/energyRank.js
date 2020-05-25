@@ -10,26 +10,12 @@ bui.ready(function() {
     });
 
     var saveBuild;
-    var selectCurid;
-    var getParams = bui.getPageParams();
-    getParams.done(function(result){
-        console.log(result);
-        selectCurid = result.curid;
-        $(".bui-bar-main").html(result.curname);
-        if(selectCurid == null || selectCurid == undefined){
-            try{
-                var curObj = JSON.parse(storage.get("curObj"));
-                selectCurid = curObj.id;
-                $(".bui-bar-main").html(curObj.name);
-            }catch(e){
-                uiDialogRight.open();
-            };
-        }
-        // {id:"page2"}
-    });
+    var selectBuildId;
     try{
         saveBuild = JSON.parse(storage.get("build"));
+        $(".bui-bar-main").html(saveBuild.name);
     }catch(e){
+        uiDialogRight.open();
     };
 
     $('#btnOpenFilter').on("click", function() {
@@ -38,36 +24,18 @@ bui.ready(function() {
 
     $(".top-class .span1").on("click", function() {
         $(this).addClass("active").siblings().removeClass("active");
-        uiList.empty();
-        // 重新初始化数据
-        uiList.init({
-            page: 1,
-            data: {
-                "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
-            }
-        });
+        getMainData(selectBuildId);
     });
 
     $(".secord-class .bui-btn").on("click", function() {
         $(this).addClass("selected").siblings().removeClass("selected");
-        uiList.empty();
-        // 重新初始化数据
-        uiList.init({
-            page: 1,
-            data: {
-                "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
-            }
-        });
+        getMainData(selectBuildId);
     });
 
     $($(".top-class li")[0]).addClass("active");
     $($(".secord-class .bui-btn")[0]).addClass("selected");
 
-        var uiPickerdate = bui.pickerdate({
+    var uiPickerdate = bui.pickerdate({
             handle: "#datepicker_input",
             bindValue: true, // 1.5.3 新增, 修改的值会自动绑定到 handle, 不再需要自己去绑定
             // input 显示的日期格式
@@ -83,7 +51,7 @@ bui.ready(function() {
                 console.log(e.target);
                 console.log(this.value());
                 time = this.value();
-                getMainData(selectCurid);
+                getMainData(selectBuildId);
             }
             // 如果不需要按钮,设置为空
             // buttons: [{name:"取消"}]
@@ -135,7 +103,7 @@ bui.ready(function() {
             .removeClass("btn_active");
         reportType = obj.val();
         initQuick(reportType);
-        getMainData(selectCurid);
+        getMainData(selectBuildId);
     });
 
     function initQuick(type) {
@@ -146,7 +114,7 @@ bui.ready(function() {
                 var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.getTime() - 24 * 60 * 60 * 1000);
                 $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)) + "-" + (preDate.getDate() < 10 ? ("0" + preDate.getDate()) : (preDate.getDate())));
-                getMainData(selectCurid);
+                getMainData(selectBuildId);
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -155,7 +123,7 @@ bui.ready(function() {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.getTime() + 24 * 60 * 60 * 1000);
                     $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)) + "-" + (nextDate.getDate() < 10 ? ("0" + nextDate.getDate()) : (nextDate.getDate())));
-                    getMainData(selectCurid);
+                    getMainData(selectBuildId);
                 } else {
                     return;
                 }
@@ -165,7 +133,7 @@ bui.ready(function() {
                 var selectDate = new Date(($("#datepicker_input").val() + "-01").replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.setMonth(selectDate.getMonth() - 1));
                 $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)));
-                getMainData(selectCurid);
+                getMainData(selectBuildId);
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -174,7 +142,7 @@ bui.ready(function() {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.setMonth(selectDate.getMonth() + 1));
                     $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)));
-                    getMainData(selectCurid);
+                    getMainData(selectBuildId);
                 } else {
                     return;
                 }
@@ -184,7 +152,7 @@ bui.ready(function() {
                 var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.setFullYear(selectDate.getFullYear() - 1));
                 $("#datepicker_input").val(preDate.getFullYear());
-                getMainData(selectCurid);
+                getMainData(selectBuildId);
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -193,7 +161,7 @@ bui.ready(function() {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.setFullYear(selectDate.getFullYear() + 1));
                     $("#datepicker_input").val(nextDate.getFullYear());
-                    getMainData(selectCurid);
+                    getMainData(selectBuildId);
                 } else {
                     return;
                 }
@@ -201,144 +169,80 @@ bui.ready(function() {
         }
     }
 
-    function getMainData(curid){
-        $("#mainScrollList").empty();
-        var reportTypeStr = $(".btn_active").attr("value");
-        var timeUnit;
-        var dataName1;
-        var dataName2;
-        var timeParam;
-        if(reportType=="DD"){
-            timeUnit = "时";
-            dataName1 = "今日";
-            dataName2 = "昨日";
-            timeParam = $("#datepicker_input").val();
-        }else if(reportType=="MM"){
-            timeUnit = "日";
-            dataName1 = "当月";
-            dataName2 = "上月";
-            timeParam = $("#datepicker_input").val()+"-01";
-        }else if(reportType=="YY"){
-            timeUnit = "月";
-            dataName1 = "今年";
-            dataName2 = "去年";
-            timeParam = $("#datepicker_input").val()+"-01-01";
-        }
-        var param = {
-            buildId:saveBuild.id,
-            code:$(".secord-class .bui-btn.selected").attr("data-value"),
-            type:$(".top-class .active").attr("data-type"),
-            reportType:reportTypeStr,
-            time:timeParam,
-            ids:curid,
-        };
-        energyObj.getDataByAjax("GET","/api/app/AppTrend/GetTrendData",param,function(data){
-            var html = "";
-            var times = [];
-            var yesVals = [];
-            var todayVals = [];
-            var unitStr = "";
-            data.forEach(function(el, index) {
-                var tongbi = "-";
-                var yesVal = "-";
-                var todayVal = "-";
-                var timeStr = "-";
-                if(reportType=="DD"){
-                    timeStr = parseInt(el.time.substring(11,13))+timeUnit;
-                }else if(reportType=="MM"){
-                    timeStr = parseInt(el.time.substring(8,10))+timeUnit;
-                }else if(reportType=="YY"){
-                    timeStr = parseInt(el.time.substring(5,7))+timeUnit;
-                }
-                times.push(timeStr);
-                if(el.currentValue!=undefined){
-                    todayVal = el.currentValue;
-                    todayVals.push(el.currentValue);
-                }
-                if(el.beforeValue!=undefined){
-                    yesVal = el.beforeValue;
-                    yesVals.push(el.beforeValue);
-                }
-                try{
-                    if(todayVal != "-" && yesVal != "-" && yesVal != 0){
-                        tongbi = (((el.currentValue-el.beforeValue)/el.beforeValue)*100).toFixed(2)+"%";
-                    }
-                }catch(e){};
-                var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
-                var consumeType = "用能";
-                switch(codeStr){
-                    case "01000":
-                        consumeType = "用电";
-                        unitStr = "kW·h";
-                        break;
-                    case "02000":
-                        consumeType = "用水";
-                        unitStr = "t";
-                        break;
-                    case "13000":
-                        consumeType = "发电";
-                        unitStr = "kW·h";
-                        break;
-                    case "03000":
-                        unitStr = "m³";
-                        break;
-                    case "40000":
-                        unitStr = "m³";
-                        break;
-                    case "05000":
-                        unitStr = "MJ";
-                        break;
-                    case "04000":
-                        unitStr = "MJ";
-                        break;
-                    case "20000":
-                        unitStr = "m³";
-                        break;
-                }
-                html += `<li class="bui-box-align-middle liBox">
-                             <div class="span1">
-                                 <div class="bui-box-align-middle">
-                                     <div class="icon"><i class="icon-biaozhi"></i></div>
-                                     <div class="span1 boldFont">${timeStr}</div>
-                                     <div class="item-text">单位：${unitStr}</div>
-                                 </div>
-                                 <ul class="bui-nav-icon bui-fluid-4 span1">
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-today"></i></div>
-                                         <div class="item-title">${consumeType}</div>
-                                         <div class="item-text">${todayVal}</div>
-                                     </li>
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-yes"></i></div>
-                                         <div class="item-title">同期</div>
-                                         <div class="item-text">${yesVal}</div>
-                                     </li>
-                                     <li class="bui-btn clearactive">
-                                         <div class="bui-icon"><i class="icon-tongbi"></i></div>
-                                         <div class="item-title">同比</div>
-                                         <div class="item-text">${tongbi}</div>
-                                     </li>
-                                 </ul>
-                             </div>
-                         </li>`;
-            });
-            $("#mainScrollList").html(html);
-            var chartData = {
-                time:times,
-                data1:{name:dataName2,yesVals},
-                data2:{name:dataName1,todayVals},
-                unit:unitStr
-            };
-            makeLine(chartData);
-        });
+    if(saveBuild!=null){
+        selectBuildId = saveBuild.id;
+        getMainData(selectBuildId);
     }
 
-    function makeLine(chartData){
-        var option = {
+    $(".bui-tag").on("change",function(){
+        getMainData(selectBuildId);
+    });
+
+    function getMainData(buildId){
+            $("#mainScrollList").empty();
+            var reportTypeStr = $(".btn_active").attr("value");
+            var timeUnit;
+            var dataName1;
+            var dataName2;
+            var timeParam;
+            if(reportType=="DD"){
+                timeUnit = "时";
+                dataName1 = "今日";
+                dataName2 = "昨日";
+                timeParam = $("#datepicker_input").val();
+            }else if(reportType=="MM"){
+                timeUnit = "日";
+                dataName1 = "当月";
+                dataName2 = "上月";
+                timeParam = $("#datepicker_input").val()+"-01";
+            }else if(reportType=="YY"){
+                timeUnit = "月";
+                dataName1 = "今年";
+                dataName2 = "去年";
+                timeParam = $("#datepicker_input").val()+"-01-01";
+            }
+            var param = {
+                buildId:buildId,
+                code:$(".secord-class .bui-btn.selected").attr("data-value"),
+                type:$(".top-class .active").attr("data-type"),
+                reportType:reportTypeStr,
+                time:timeParam,
+                pageIndex:1,
+                pageSize:$(".bui-tag:checked").val(),
+            };
+            energyObj.getDataByAjax("GET","/api/app/AppRank",param,function(data){
+                var names = [];
+                var values = [];
+                var html = '';
+                data.forEach(function(el, index) {
+                    names.push(el.name);
+                    values.push(el.value);
+                    html += `<li>
+                                    <div class="rankLi bui-box">
+                                        <div class="span1">
+                                            <h3 class="item-title title-left"><span class="rankIndex">${index+1}</span><span class="rankValue">${el.name}</span></h3>
+                                        </div>
+                                        <span class="value-right">${el.value}</span>
+                                    </div>
+                                </li>`;
+                });
+                $("#mainScrollList").html(html);
+                var barData = {
+                    name:names,
+                    value:values
+                };
+                makeBar(barData);
+            });
+    }
+
+    function makeBar(barData){
+        option = {
             color: ['#2EC7C9','#B6A2DE','#3CA4E4','#FFB980'],
-            tooltip: {
-                trigger: 'axis'
-            },
+            dataZoom: [{
+                type: 'inside'
+            }, {
+                type: 'slider'
+            }],
             toolbox: {
                 show: true,
                 orient: 'horizontal',
@@ -353,32 +257,25 @@ bui.ready(function() {
                     restore: {}
                 }
             },
-            legend: {
-                data:[chartData.data1.name, chartData.data2.name],
-                left:60,
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
             },
-            dataZoom: [{ // 这个dataZoom组件，默认控制x轴。
-                type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
-                start: 0, // 左边在 10% 的位置。
-                end: 100, // 右边在 60% 的位置。
-                height: 25,
-                bottom: 8
-            }],
             grid: {
                 left: 50,
                 right: 20,
-                top: 45,
+                top: 38,
                 bottom: 58
             },
             xAxis: {
                 type: 'category',
-                boundaryGap: false,
-                data: chartData.time,
+                data: barData.name
             },
             yAxis: {
                 type: 'value',
                 scale: true,
-                name:chartData.unit,
                 axisLabel:{
                     formatter:function(val,index){
                         if(val >= 10000 && val<10000000){
@@ -392,16 +289,13 @@ bui.ready(function() {
                 },
             },
             series: [{
-                    name: chartData.data1.name,
-                    type: 'line',
-                    data: chartData.data1.yesVals,
-                },
-                {
-                    name: chartData.data2.name,
-                    type: 'line',
-                    data: chartData.data2.todayVals,
+                data: barData.value,
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(220, 220, 220, 0.8)'
                 }
-            ]
+            }]
         };
         var myChart = echarts.init($("#chartBox").get(0));
         myChart.setOption(option);
@@ -440,13 +334,9 @@ bui.ready(function() {
 
     var uiList = bui.list({
         id: "#scrollList",
-        url: "/api/app/AppTrend/GetMeterList",
+        url: "/api/app/AppBuild",
         pageSize: 15, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
-        data: {code:$(".secord-class .bui-btn.selected").attr("data-value"),
-           type:$(".top-class .active").attr("data-type"),
-           buildId:saveBuild.id,
-           keyWord:$("#searchInput").val(),
-        },
+        data: {},
         //如果分页的字段名不一样,通过field重新定义
         field: {
             page: "pageIndex",
@@ -458,10 +348,11 @@ bui.ready(function() {
             // e.currentTarget 为你当前点击的handle 整行
             var buildId = $(e.currentTarget).attr("data-id");
             var buildName = $(e.currentTarget).attr("data-name");
-            storage.set("curObj",JSON.stringify({id:buildId,name:buildName}));
+            var clickBuild = {id:buildId,name:buildName};
+            storage.set("build", JSON.stringify(clickBuild));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
-            selectCurid = buildId;
+            selectBuildId = buildId;
             getMainData(buildId);
         },
         template: function(data) {
@@ -489,10 +380,4 @@ bui.ready(function() {
             console.log("loaded")
         }
     });
-
-    if(selectCurid==undefined){
-        uiDialogRight.open();
-    }else{
-        getMainData(selectCurid);
-    }
 });
