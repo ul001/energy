@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="lib/bui.css"/>
     <link rel="stylesheet" href="css/common.css"/>
     <link rel="stylesheet" href="css/trendStatistics.css"/>
+    <link rel="stylesheet" href="css/buildContrast.css"/>
 </head>
 <body>
 <div class="bui-page bui-box-vertical">
@@ -15,25 +16,29 @@
         <!-- 固定顶部区 -->
         <div class="bui-bar">
             <div class="bui-bar-left bui-bar-text">
-                <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i><span data-i18n="ui_back"></span></a>
+                <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i><span
+                        data-i18n="ui_back"></span></a>
             </div>
-            <div class="bui-bar-main" data-i18n="energySystem"></div>
+            <div class="bui-bar-main">趋势统计</div>
             <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
         </div>
     </header>
     <main>
+        <div class="bui-box">
+            <button class="span2 button dateBtn btn_active" id="DD" value="DD">日</button>
+            <button class="span2 button dateBtn" id="MM" value="MM">月</button>
+            <button class="span2 button dateBtn" id="YY" value="YY">年</button>
+            <span class="down span1" id="datePre"></span>
+            <div class="dataTime span5 bui-box-center">
+                <input type="text" id="datepicker_input" readonly class="bui-input"/>
+            </div>
+            <span class="pull span1" id="dateNext"></span>
+        </div>
         <div id="chartBox">
 
         </div>
-        <div id="mainScrollList" class="bui-scroll">
-            <div class="bui-scroll-head"></div>
-            <div class="bui-scroll-main">
-                <ul class="bui-list bui-list-thumbnail">
-
-                </ul>
-            </div>
-            <div class="bui-scroll-foot"></div>
-        </div>
+        <ul id="mainScrollList" class="bui-list bui-scroll">
+        </ul>
     </main>
     <!--    <footer>-->
     <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
@@ -54,10 +59,14 @@
             <div class="btn-search" data-i18n="ui_search"></div>
         </div>
         <ul class="bui-box-center top-class">
-            <li class="span1 bui-box-center" data-type="c"><img src="img/zhilu_h.png"><span data-i18n="slipRoad"></span></li>
-            <li class="span1 bui-box-center" data-type="i"><img src="img/fenxiang_h.png"><span data-i18n="subOption"></span></li>
-            <li class="span1 bui-box-center" data-type="r"><img src="img/quyu_h.png"><span data-i18n="area"></span></li>
-            <li class="span1 bui-box-center" data-type="d"><img src="img/bumen_h.png"><span data-i18n="department"></span></li>
+            <li class="span1 bui-box-center" data-type="c"><img src="img/zhilu_h.png"><span
+                    data-i18n="slipRoad"></span></li>
+            <li class="span1 bui-box-center" data-type="i"><img src="img/fenxiang_h.png"><span
+                    data-i18n="subOption"></span></li>
+            <li class="span1 bui-box-center" data-type="r"><img src="img/quyu_h.png"><span
+                    data-i18n="area"></span></li>
+            <li class="span1 bui-box-center" data-type="d"><img src="img/bumen_h.png"><span
+                    data-i18n="department"></span></li>
         </ul>
         <ul class="bui-nav-icon secord-class">
             <li class="bui-btn" data-value="01000">

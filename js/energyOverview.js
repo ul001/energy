@@ -164,7 +164,7 @@ bui.ready(function() {
                             unitStr = "m³";
                             break;
                     }
-                    html += `<li class="bui-box-align-middle liBox" data-id="${el.id}">
+                    html += `<li class="bui-box-align-middle liBox" onClick="jumpPage('${el.id}','${el.name}')" data-id="${el.id}">
                                  <div class="span1">
                                      <div class="bui-box-align-middle">
                                          <div class="icon"><i class="icon-biaozhi"></i></div>
@@ -290,3 +290,7 @@ bui.ready(function() {
         }
     });
 });
+
+function jumpPage(curid,curname){
+    bui.load({ url: "trendStatistics.html", param: { curid: curid,curname:curname} });
+}
