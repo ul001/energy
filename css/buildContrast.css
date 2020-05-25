@@ -73,3 +73,43 @@
     width: .45rem;
     height: .45rem;
 }
+
+.buildSelect {
+    margin-top: 0.2rem;
+}
+
+.buildSelect label {
+    float: left;
+    margin: 0.2rem;
+}
+
+.cube-input-field {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 0.266667rem;
+    box-sizing: border-box;
+    line-height: inherit;
+    border-radius: 0.01rem;
+    outline: none;
+    width: 80%;
+}
+
+.buildSelect img {
+    float: right;
+    margin-top: -1.0rem;
+    margin-right: 0.2rem;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+#chartDosage {
+    /* padding: absolute; */
+    width: 95%;
+    height: 90%;
+    /* background: #fff; */
+    background-color: white;
+}
