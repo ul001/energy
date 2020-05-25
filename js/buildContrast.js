@@ -65,22 +65,24 @@ bui.ready(function () {
                         valueBSUM += el.value;
                     });
                 }
-                if (timeA.length > timeB.length) {
-                    initBar($("#lineChart"), timeA, valueA, valueB, [{
-                        value: valueASum,
-                        name: data.buildAName
-                    }, {
-                        value: valueBSUM,
-                        name: data.buildBName
-                    }]);
-                } else {
-                    initBar($("#lineChart"), timeB, valueA, valueB, [{
-                        value: valueASum,
-                        name: data.buildAName
-                    }, {
-                        value: valueBSUM,
-                        name: data.buildBName
-                    }]);
+                if (timeA.length || timeB.length) {
+                    if (timeA.length > timeB.length) {
+                        initBar($("#lineChart"), timeA, valueA, valueB, [{
+                            value: valueASum,
+                            name: data.buildAName
+                        }, {
+                            value: valueBSUM,
+                            name: data.buildBName
+                        }]);
+                    } else {
+                        initBar($("#lineChart"), timeB, valueA, valueB, [{
+                            value: valueASum,
+                            name: data.buildAName
+                        }, {
+                            value: valueBSUM,
+                            name: data.buildBName
+                        }]);
+                    }
                 }
             }
         );
@@ -232,10 +234,11 @@ bui.ready(function () {
         }
     }
 
+    //
     $(".secord-class .bui-btn").on("click", function () {
         $(this).addClass("selected").siblings().removeClass("selected");
         code = $(".secord-class .bui-btn.selected").attr("data-value");
-
+        initData();
     });
 
     $($(".secord-class .bui-btn")[0]).addClass("selected");

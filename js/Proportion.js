@@ -241,7 +241,7 @@ bui.ready(function () {
                             }
                         }
                     },
-                    color: ["#c23531", "#F36757", "#2EC3D9", "#92D401"],
+                    color: ["#c23531", "#EDBA5E"],
                     data: barData
                 }
             ]
