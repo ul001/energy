@@ -223,6 +223,9 @@ bui.ready(function () {
             ids: curid,
         };
         energyObj.getDataByAjax("GET", "/api/app/AppTrend/GetTrendData", param, function (data) {
+            if (data.error) {
+                return;
+            }
             var html = "";
             var times = [];
             var yesVals = [];

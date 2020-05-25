@@ -234,8 +234,9 @@ bui.ready(function () {
         }
     }
 
-    //
+    //切换电光水
     $(".secord-class .bui-btn").on("click", function () {
+        // $("#chartDosage").empty();
         $(this).addClass("selected").siblings().removeClass("selected");
         code = $(".secord-class .bui-btn.selected").attr("data-value");
         initData();
