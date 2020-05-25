@@ -60,21 +60,23 @@
     padding-bottom: .12rem;
 }
 
-#mainScrollList.bui-scroll .bui-scroll-main{
+#mainScrollList{
+    margin-top:.05rem;
     background-color:initial;
+    height:calc(100% - 5.53rem);
 }
 
-#mainScrollList .bui-list .liBox{
+#mainScrollList.bui-list .liBox{
     margin:.15rem;
     background-color:#fff;
     border-radius: 0.2rem;
 }
 
-#mainScrollList .bui-list .bui-fluid-4{
+#mainScrollList.bui-list .bui-fluid-4{
     border-radius: 0.2rem;
 }
 
-#mainScrollList .bui-list .bui-fluid-4>li{
+#mainScrollList.bui-list .bui-fluid-4>li{
     width:30%;
     float:left;
     border-radius: 0.2rem;
