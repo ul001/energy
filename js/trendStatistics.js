@@ -1,4 +1,4 @@
-bui.ready(function() {
+bui.ready(function () {
     var storage = bui.storage();
     // 右边出来对话框
     var uiDialogRight = bui.dialog({
@@ -12,31 +12,30 @@ bui.ready(function() {
     var saveBuild;
     var selectCurid;
     var getParams = bui.getPageParams();
-    getParams.done(function(result){
+    getParams.done(function (result) {
         console.log(result);
         selectCurid = result.curid;
         $(".bui-bar-main").html(result.curname);
-        if(selectCurid == null || selectCurid == undefined){
-            try{
+        if (selectCurid == null || selectCurid == undefined) {
+            try {
                 var curObj = JSON.parse(storage.get("curObj"));
                 selectCurid = curObj.id;
                 $(".bui-bar-main").html(curObj.name);
-            }catch(e){
+            } catch (e) {
                 uiDialogRight.open();
             };
         }
         // {id:"page2"}
     });
-    try{
+    try {
         saveBuild = JSON.parse(storage.get("build"));
-    }catch(e){
-    };
+    } catch (e) {};
 
-    $('#btnOpenFilter').on("click", function() {
+    $('#btnOpenFilter').on("click", function () {
         uiDialogRight.open();
     });
 
-    $(".top-class .span1").on("click", function() {
+    $(".top-class .span1").on("click", function () {
         $(this).addClass("active").siblings().removeClass("active");
         uiList.empty();
         // 重新初始化数据
@@ -44,13 +43,13 @@ bui.ready(function() {
             page: 1,
             data: {
                 "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
+                "code": $(".secord-class .bui-btn.selected").attr("data-value"),
+                "type": $(".top-class .active").attr("data-type"),
             }
         });
     });
 
-    $(".secord-class .bui-btn").on("click", function() {
+    $(".secord-class .bui-btn").on("click", function () {
         $(this).addClass("selected").siblings().removeClass("selected");
         uiList.empty();
         // 重新初始化数据
@@ -58,8 +57,8 @@ bui.ready(function() {
             page: 1,
             data: {
                 "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
+                "code": $(".secord-class .bui-btn.selected").attr("data-value"),
+                "type": $(".top-class .active").attr("data-type"),
             }
         });
     });
@@ -67,27 +66,27 @@ bui.ready(function() {
     $($(".top-class li")[0]).addClass("active");
     $($(".secord-class .bui-btn")[0]).addClass("selected");
 
-        var uiPickerdate = bui.pickerdate({
-            handle: "#datepicker_input",
-            bindValue: true, // 1.5.3 新增, 修改的值会自动绑定到 handle, 不再需要自己去绑定
-            // input 显示的日期格式
-            formatValue: "yyyy-MM-dd",
-            cols: {
-                hour: "none",
-                minute: "none",
-                second: "none"
-            },
-            min: '2000/01/01 00:00:00',
-            onChange: function (value) {},
-            callback: function (e) {
-                console.log(e.target);
-                console.log(this.value());
-                time = this.value();
-                getMainData(selectCurid);
-            }
-            // 如果不需要按钮,设置为空
-            // buttons: [{name:"取消"}]
-        });
+    var uiPickerdate = bui.pickerdate({
+        handle: "#datepicker_input",
+        bindValue: true, // 1.5.3 新增, 修改的值会自动绑定到 handle, 不再需要自己去绑定
+        // input 显示的日期格式
+        formatValue: "yyyy-MM-dd",
+        cols: {
+            hour: "none",
+            minute: "none",
+            second: "none"
+        },
+        min: '2000/01/01 00:00:00',
+        onChange: function (value) {},
+        callback: function (e) {
+            console.log(e.target);
+            console.log(this.value());
+            time = this.value();
+            getMainData(selectCurid);
+        }
+        // 如果不需要按钮,设置为空
+        // buttons: [{name:"取消"}]
+    });
 
     var time = tool.initDate("YMD", new Date());
     var reportType = "DD";
@@ -201,72 +200,72 @@ bui.ready(function() {
         }
     }
 
-    function getMainData(curid){
+    function getMainData(curid) {
         $("#mainScrollList").empty();
         var reportTypeStr = $(".btn_active").attr("value");
         var timeUnit;
         var dataName1;
         var dataName2;
         var timeParam;
-        if(reportType=="DD"){
+        if (reportType == "DD") {
             timeUnit = "时";
             dataName1 = "今日";
             dataName2 = "昨日";
             timeParam = $("#datepicker_input").val();
-        }else if(reportType=="MM"){
+        } else if (reportType == "MM") {
             timeUnit = "日";
             dataName1 = "当月";
             dataName2 = "上月";
-            timeParam = $("#datepicker_input").val()+"-01";
-        }else if(reportType=="YY"){
+            timeParam = $("#datepicker_input").val() + "-01";
+        } else if (reportType == "YY") {
             timeUnit = "月";
             dataName1 = "今年";
             dataName2 = "去年";
-            timeParam = $("#datepicker_input").val()+"-01-01";
+            timeParam = $("#datepicker_input").val() + "-01-01";
         }
         var param = {
-            buildId:saveBuild.id,
-            code:$(".secord-class .bui-btn.selected").attr("data-value"),
-            type:$(".top-class .active").attr("data-type"),
-            reportType:reportTypeStr,
-            time:timeParam,
-            ids:curid,
+            buildId: saveBuild.id,
+            code: $(".secord-class .bui-btn.selected").attr("data-value"),
+            type: $(".top-class .active").attr("data-type"),
+            reportType: reportTypeStr,
+            time: timeParam,
+            ids: curid,
         };
-        energyObj.getDataByAjax("GET","/api/app/AppTrend/GetTrendData",param,function(data){
+        energyObj.getDataByAjax("GET", "/api/app/AppTrend/GetTrendData", param, function (data) {
             var html = "";
             var times = [];
             var yesVals = [];
             var todayVals = [];
             var unitStr = "";
-            data.forEach(function(el, index) {
+            data.forEach(function (el, index) {
                 var tongbi = "-";
                 var yesVal = "-";
                 var todayVal = "-";
                 var timeStr = "-";
-                if(reportType=="DD"){
-                    timeStr = parseInt(el.time.substring(11,13))+timeUnit;
-                }else if(reportType=="MM"){
-                    timeStr = parseInt(el.time.substring(8,10))+timeUnit;
-                }else if(reportType=="YY"){
-                    timeStr = parseInt(el.time.substring(5,7))+timeUnit;
+                if (reportType == "DD") {
+                    timeStr = parseInt(el.time.substring(11, 13)) + timeUnit;
+                } else if (reportType == "MM") {
+                    timeStr = parseInt(el.time.substring(8, 10)) + timeUnit;
+                } else if (reportType == "YY") {
+                    timeStr = parseInt(el.time.substring(5, 7)) + timeUnit;
                 }
                 times.push(timeStr);
-                if(el.currentValue!=undefined){
+                if (el.currentValue != undefined) {
                     todayVal = el.currentValue;
                     todayVals.push(el.currentValue);
                 }
-                if(el.beforeValue!=undefined){
+                if (el.beforeValue != undefined) {
                     yesVal = el.beforeValue;
                     yesVals.push(el.beforeValue);
                 }
-                try{
-                    if(todayVal != "-" && yesVal != "-" && yesVal != 0){
-                        tongbi = (((el.currentValue-el.beforeValue)/el.beforeValue)*100).toFixed(2)+"%";
+                try {
+                    if (todayVal != "-" && yesVal != "-" && yesVal != 0) {
+                        tongbi = (((el.currentValue - el.beforeValue) / el.beforeValue) * 100).toFixed(2) + "%";
                     }
-                }catch(e){};
+                } catch (e) {};
                 var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
                 var consumeType = "用能";
-                switch(codeStr){
+                switch (codeStr) {
                     case "01000":
                         consumeType = "用电";
                         unitStr = "kW·h";
@@ -324,18 +323,24 @@ bui.ready(function() {
             });
             $("#mainScrollList").html(html);
             var chartData = {
-                time:times,
-                data1:{name:dataName2,yesVals},
-                data2:{name:dataName1,todayVals},
-                unit:unitStr
+                time: times,
+                data1: {
+                    name: dataName2,
+                    yesVals
+                },
+                data2: {
+                    name: dataName1,
+                    todayVals
+                },
+                unit: unitStr
             };
             makeLine(chartData);
         });
     }
 
-    function makeLine(chartData){
+    function makeLine(chartData) {
         var option = {
-            color: ['#2EC7C9','#B6A2DE','#3CA4E4','#FFB980'],
+            color: ['#2EC7C9', '#B6A2DE', '#3CA4E4', '#FFB980'],
             tooltip: {
                 trigger: 'axis'
             },
@@ -354,8 +359,8 @@ bui.ready(function() {
                 }
             },
             legend: {
-                data:[chartData.data1.name, chartData.data2.name],
-                left:60,
+                data: [chartData.data1.name, chartData.data2.name],
+                left: 60,
             },
             dataZoom: [{ // 这个dataZoom组件，默认控制x轴。
                 type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
@@ -378,14 +383,14 @@ bui.ready(function() {
             yAxis: {
                 type: 'value',
                 scale: true,
-                name:chartData.unit,
-                axisLabel:{
-                    formatter:function(val,index){
-                        if(val >= 10000 && val<10000000){
-                            return val/10000+"万";
-                        }else if(val >= 10000000){
-                            return val/10000000+"千万";
-                        }else{
+                name: chartData.unit,
+                axisLabel: {
+                    formatter: function (val, index) {
+                        if (val >= 10000 && val < 10000000) {
+                            return val / 10000 + "万";
+                        } else if (val >= 10000000) {
+                            return val / 10000000 + "千万";
+                        } else {
                             return val;
                         }
                     },
@@ -409,11 +414,11 @@ bui.ready(function() {
 
     var uiSearchbar = bui.searchbar({
         id: "#searchbar",
-        onInput: function(e, keyword) {
+        onInput: function (e, keyword) {
             //实时搜索
             // console.log(++n)
         },
-        onRemove: function(e, keyword) {
+        onRemove: function (e, keyword) {
             uiList.empty();
             // 重新初始化数据
             uiList.init({
@@ -423,7 +428,7 @@ bui.ready(function() {
                 }
             });
         },
-        callback: function(e, keyword) {
+        callback: function (e, keyword) {
             if (uiList) {
                 //点击搜索清空数据
                 uiList.empty();
@@ -442,10 +447,11 @@ bui.ready(function() {
         id: "#scrollList",
         url: "/api/app/AppTrend/GetMeterList",
         pageSize: 15, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
-        data: {code:$(".secord-class .bui-btn.selected").attr("data-value"),
-           type:$(".top-class .active").attr("data-type"),
-           buildId:saveBuild.id,
-           keyWord:$("#searchInput").val(),
+        data: {
+            code: $(".secord-class .bui-btn.selected").attr("data-value"),
+            type: $(".top-class .active").attr("data-type"),
+            buildId: saveBuild.id,
+            keyWord: $("#searchInput").val(),
         },
         //如果分页的字段名不一样,通过field重新定义
         field: {
@@ -453,20 +459,23 @@ bui.ready(function() {
             size: "pageSize",
             data: "data"
         },
-        callback: function(e) {
+        callback: function (e) {
             // e.target 为你当前点击的元素
             // e.currentTarget 为你当前点击的handle 整行
             var buildId = $(e.currentTarget).attr("data-id");
             var buildName = $(e.currentTarget).attr("data-name");
-            storage.set("curObj",JSON.stringify({id:buildId,name:buildName}));
+            storage.set("curObj", JSON.stringify({
+                id: buildId,
+                name: buildName
+            }));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
             selectCurid = buildId;
             getMainData(buildId);
         },
-        template: function(data) {
+        template: function (data) {
             var html = "";
-            data.forEach(function(el, index) {
+            data.forEach(function (el, index) {
                 html += `<li class="bui-btn bui-box" data-id="${el.id}" data-name="${el.name}">
                              <div class="icon"><i class="icon-sub"></i></div>
                              <div class="span1">${el.name}</div>
@@ -474,25 +483,25 @@ bui.ready(function() {
             });
             return html;
         },
-        onBeforeRefresh: function() {
+        onBeforeRefresh: function () {
             console.log("brefore refresh")
         },
-        onBeforeLoad: function() {
+        onBeforeLoad: function () {
             console.log("brefore load")
         },
-        onRefresh: function() {
+        onRefresh: function () {
             // 刷新以后执行
             console.log("refreshed")
         },
-        onLoad: function() {
+        onLoad: function () {
             // 刷新以后执行
             console.log("loaded")
         }
     });
 
-    if(selectCurid==undefined){
+    if (selectCurid == undefined) {
         uiDialogRight.open();
-    }else{
+    } else {
         getMainData(selectCurid);
     }
 });
