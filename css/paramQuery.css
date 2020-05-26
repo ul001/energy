@@ -1,0 +1,231 @@
+#dialogRight {
+    left: 20%;
+}
+
+#btnOpenFilter{
+    font-size:.4rem;
+}
+
+#searchbar{
+    background:#02A8A6;
+    color:#fff;
+}
+
+.bui-dialog-head{
+    background:#02A8A6;
+}
+
+.icon-sub{
+    background-image:url(../img/showSubList.png);
+    background-size:100%;
+    width: .45rem;
+    height: .45rem;
+}
+
+.top-class,.secord-class{
+    margin:.1rem;
+    background:#fff;
+}
+
+.top-class li{
+    padding:.2rem 0;
+}
+
+.top-class li.active{
+    color: #1187e7;
+}
+
+.top-class img{
+    width:.3rem;
+    margin-right:.1rem;
+}
+
+.secord-class img{
+    height:.8rem;
+}
+
+.secord-class li{
+    width:24%;
+    display:inline-block;
+}
+
+.secord-class{
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.secord-class li.selected{
+    color: #1187e7;
+    border-bottom: 0.08rem solid #00aca8;
+    padding-bottom: .12rem;
+}
+
+.third-class img{
+    height:.8rem;
+}
+
+.third-class li{
+    width:24%;
+    display:inline-block;
+}
+
+.third-class{
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-top:.1rem;
+}
+
+.third-class li.selected{
+    color: #1187e7;
+    border-bottom: 0.08rem solid #00aca8;
+    padding-bottom: .12rem;
+}
+
+#mainsearchbar{
+    margin:0 .1rem;
+}
+
+#mainScrollList.bui-scroll .bui-scroll-main{
+    background-color:initial;
+}
+
+#mainScrollList .bui-list .liBox{
+    margin:.15rem;
+    background-color:#fff;
+    border-radius: 0.2rem;
+}
+
+#mainScrollList .bui-list .bui-fluid-4{
+    border-radius: 0.2rem;
+}
+
+#mainScrollList .bui-list .bui-fluid-4>li{
+    width:30%;
+    float:left;
+    border-radius: 0.2rem;
+}
+
+.icon-biaozhi{
+    background-image:url(../img/energy_12.png);
+    background-size:100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-today{
+    background-image:url(../img/dangri.png);
+    background-size:100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-yes{
+    background-image:url(../img/dangyue.png);
+    background-size:100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-tongbi{
+    background-image:url(../img/tongbi.png);
+    background-size:60%;
+    width: .3rem;
+    height: .3rem;
+}
+
+.liBox li .item-text{
+    font-size: 0.4rem;
+    color: #12b2f5;
+}
+
+.textBox{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dataTime {
+    border: 0.026667rem solid #faebd7;
+    height: 0.75rem;
+    color: #fff;
+    background: #00ada9;
+    line-height: .8rem;
+}
+
+.down {
+    margin-left: 0.1rem;
+    height: 0.7rem;
+    padding-right: 0.2rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    background-color: #00ada9;
+    color: #fff;
+    line-height: 0.7rem;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAQCAYAAADESFVDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGRJREFUeNpiYMAB/v//bwDE90E0LgUCUAUgsB+XgvNQBSBaAJ+C90CsQEiBAWkKoIr2E1IwH68CIGAC4oNQNsgXBgx4Aq7hPwIk4FM4n6YKA4hRiNPHMIXrcUYwWiyATBQACDAAWwjeJR14L1sAAAAASUVORK5CYII=);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pull {
+    height: 0.7rem;
+    padding-left: 0.2rem;
+    margin-right: 0.1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #00ada9;
+    color: #fff;
+    line-height: 0.7rem;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAQCAYAAAAvf+5AAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAF5JREFUeNpi+P//vwAQnwfiBAZ8AKig4D8CEFQ8H6rwPRAbUEcxklsHkeL7ID4TDrUKUAwCBxgZGT9gM80AauV/qKkCtFUkAHU0QUXn8SpCSxQgaxUIxXM/ocQAEGAA0D7uOUoiLMwAAAAASUVORK5CYII=);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#datepicker_input {
+    background: none;
+    color: white;
+    text-align: center;
+    padding-left: 0;
+}
+
+main{
+    padding:.1rem;
+}
+
+.checkDiv{
+    margin:.1rem 0;
+    text-align:center;
+}
+
+.checkDiv .selectSpan{
+    padding:.2rem 0;
+    text-align:center;
+    background:#fff;
+    display:none;
+}
+
+.checkDiv .selectSpan.showSpan{
+    display:block;
+}
+
+#chartBox{
+    height: 4.5rem;
+    background: #fff!important;
+}
+
+#tableBox{
+    margin:.1rem 0;
+    padding:.1rem 0;
+    background:#fff;
+}
+
+.blueSpan{
+    color: #87ceeb;
+}
+
+.yellowSpan{
+    color: #fd973d;
+}
+
+.paramLi{
+    background: #eee;
+    margin: 0.1rem;
+    padding:.2rem .3rem;
+}

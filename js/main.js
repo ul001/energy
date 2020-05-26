@@ -111,8 +111,42 @@ bui.ready(function () {
             console.log("loaded")
         }
     });
-    return uiList;
 
-
+    $("#jump1").on("click",function(){
+        bui.load({url:"energyOverview.html"});
+    });
+    $("#jump2").on("click",function(){
+        bui.load({url:"trendStatistics.html"});
+    });
+    $("#jump3").on("click",function(){
+        bui.load({url:"YoYAnalysis.html"});
+    });
+    $("#jump4").on("click",function(){
+        bui.load({url:"energyRank.html"});
+    });
+    $("#jump5").on("click",function(){
+        bui.load({url:"paramQuery.html"});
+    });
+    $("#jump6").on("click",function(){
+        bui.load({url:"CompoundRate.html"});
+    });
+//    $("#jump7").on("click",function(){
+//        bui.load({url:"energyOverview.html"});
+//    });
+//    $("#jump8").on("click",function(){
+//        bui.load({url:"energyOverview.html"});
+//    });
+    $("#jump9").on("click",function(){
+        bui.load({url:"buildOverview.html"});
+    });
+    $("#jump10").on("click",function(){
+        bui.load({url:"buildTrendSum.html"});
+    });
+    $("#jump11").on("click",function(){
+        bui.load({url:"buildContrast.html"});
+    });
+    $("#jump12").on("click",function(){
+        bui.load({url:"Proportion.html"});
+    });
 
 });
