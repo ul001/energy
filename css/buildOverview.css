@@ -1,0 +1,157 @@
+#dialogRight {
+    left: 20%;
+}
+
+#btnOpenFilter {
+    font-size: .4rem;
+}
+
+#searchbar {
+    background: #02A8A6;
+    color: #fff;
+}
+
+.bui-dialog-head {
+    background: #02A8A6;
+}
+
+.icon-sub {
+    background-image: url(../img/showSubList.png);
+    background-size: 100%;
+    width: .45rem;
+    height: .45rem;
+}
+
+.top-class,
+.secord-class {
+    margin: .1rem;
+    background: #fff;
+}
+
+.top-class li {
+    padding: .2rem 0;
+}
+
+.top-class li.active {
+    color: #1187e7;
+}
+
+.top-class img {
+    width: .3rem;
+    margin-right: .1rem;
+}
+
+.secord-class img {
+    height: .8rem;
+}
+
+.secord-class li {
+    width: 24%;
+    display: inline-block;
+}
+
+.secord-class {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.secord-class li.selected {
+    color: #1187e7;
+    border-bottom: 0.08rem solid #00aca8;
+    padding-bottom: .12rem;
+}
+
+#mainScrollList {
+    margin-top: .05rem;
+    background-color: initial;
+    height: calc(100% - 5.53rem);
+}
+
+#mainScrollList.bui-list .liBox {
+    margin: .15rem;
+    background-color: #fff;
+    border-radius: 0.2rem;
+}
+
+#mainScrollList.bui-list .bui-fluid-4 {
+    border-radius: 0.2rem;
+}
+
+#mainScrollList.bui-list .bui-fluid-4>li {
+    width: 30%;
+    float: left;
+    border-radius: 0.2rem;
+}
+
+.icon-biaozhi {
+    background-image: url(../img/energy_12.png);
+    background-size: 100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-today {
+    background-image: url(../img/dangri.png);
+    background-size: 100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-yes {
+    background-image: url(../img/dangyue.png);
+    background-size: 100%;
+    width: .3rem;
+    height: .35rem;
+}
+
+.icon-tongbi {
+    background-image: url(../img/tongbi.png);
+    background-size: 60%;
+    width: .3rem;
+    height: .3rem;
+}
+
+.liBox li .item-text {
+    font-size: 0.4rem;
+    color: #12b2f5;
+}
+
+#chartBox {
+    height: 4.5rem;
+    margin: 0.1rem;
+    margin-bottom: 0;
+    background: #fff !important;
+    border-radius: 0.2rem;
+}
+
+.Getway {
+    height: 3.5rem;
+    background-color: #00ada9;
+    background-image: url(../img/plan_03.png);
+    background-size: 100% 100%;
+}
+
+.GetwayNumb {
+    float: left;
+    width: 33%;
+    margin-top: 0.9rem;
+}
+
+.GetwayNumb span {
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.72rem;
+    margin-left: 1.2rem;
+}
+
+.GetwayNumb a {
+    font-size: 0.2rem;
+    color: #fff;
+}
+
+.GetwayNumb p {
+    margin-top: 0.8rem;
+    color: #fff;
+    font-size: 0.35rem;
+    margin-left: 1.0rem;
+}
