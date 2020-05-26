@@ -52,6 +52,7 @@ bui.ready(function () {
                 "type": $(".top-class .active").attr("data-type"),
             }
         });
+        getMainData(selectCurid);
     });
 
     $($(".top-class li")[0]).addClass("active");
@@ -255,7 +256,7 @@ bui.ready(function () {
                         } else if (reportType == "MM") {
                             thisTime = parseInt(th.time.substring(8, 10)) + timeUnit;
                         } else if (reportType == "YY") {
-                            thisTime = parseInt(th.time.substring(5, 7) - 1) + timeUnit;
+                            thisTime = parseInt(th.time.substring(5, 7)) + timeUnit;
                         }
                         if (thisTime == timeStr) {
                             todayVal = th.value;
@@ -263,6 +264,8 @@ bui.ready(function () {
                             try {
                                 if (todayVal != "-" && yesVal != "-" && yesVal != 0) {
                                     tongbi = (((todayVal - yesVal) / yesVal) * 100).toFixed(2) + "%";
+                                } else {
+                                    tongbi = "-";
                                 }
                             } catch (e) {};
                             var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
@@ -476,7 +479,7 @@ bui.ready(function () {
             storage.set("build", JSON.stringify(clickBuild));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
-            // initData();
+            getMainData(selectCurid);
         },
         template: function (data) {
             var html = "";
