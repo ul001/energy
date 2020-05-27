@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>复费率统计</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/bui.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/trendStatistics.css" />
+    <link rel="stylesheet" href="css/buildContrast.css" />
+</head>
+
+<body>
+    <div class="bui-page bui-box-vertical">
+        <header>
+            <!-- 固定顶部区 -->
+            <div class="bui-bar">
+                <div class="bui-bar-left bui-bar-text">
+                    <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i><span
+                            data-i18n="ui_back"></span></a>
+                </div>
+                <div class="bui-bar-main">复费率统计</div>
+                <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
+            </div>
+        </header>
+        <main>
+            <div class="bui-box">
+                <button class="span2 button dateBtn btn_active" id="DD" value="DD">日</button>
+                <button class="span2 button dateBtn" id="MM" value="MM">月</button>
+                <button class="span2 button dateBtn" id="YY" value="YY">年</button>
+                <span class="down span1" id="datePre"></span>
+                <div class="dataTime span5 bui-box-center">
+                    <input type="text" id="datepicker_input" readonly class="bui-input" />
+                </div>
+                <span class="pull span1" id="dateNext"></span>
+            </div>
+            <div id="chartBox">
+
+            </div>
+            <div id="pieBox">
+
+            </div>
+            <div data-v-4524ca02="" class="total">
+                <div data-v-4524ca02="" class="title"><img data-v-4524ca02=""
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAcCAYAAACQ0cTtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAaFJREFUeNpiZACC/4s1FIBUPhAbMFAfPADiiYyxNy4w/l8CtOg/w3mggAAD7cAHBkYGRRYGRkYFIIOWFjFAPZLAwsDEyEAnIADyGX7vMzBcIMFABSjGClj+Y/XZ/wvAeAxkCr/6gFTn/1upLQCMlvkMDIwBGJZhD0ZGmK9IB8xMOPUCLcOqBZQF3v9bp3uADOsccAYjgThzoGYKoWdqpLNl/xkZiSsBGBg2AFU+xEi3DAzy0OBWoI7P/v93ZPY+jzO//d1qCEzujOcJWUhkMDLW/91hPBGUwZk9zqIka6C4A/E+Iy7KAqCY4e9O49HUODSS/mgwEkr6dPUZWfoWMECKrnxSGkpM4GAkFjMyLgBiRRbLY4lA3ABkG4LFiNRPZNkI9kkji/kRlGYCi8VRED/xzykbUFHWDyyNHAgl/Q94SvqJQIsmsJodxttEYDE7AiqkHX+ftnWAtD+wl5Ngb/0+a7cf7qr/UEsY/k9gNT5MVjvk91nbAlDhjdIe/c+gCLHsvB24EQmLfFbDQx8oTXkQMxmBljLoA21aCDRzA0CAAQCCUWm/TkYsswAAAABJRU5ErkJggg=="
+                        alt=""> <span data-v-4524ca02=""
+                        style="float: left; margin-left: 0.2rem; color: black; margin-top: 0.1rem; font-size: 0.35rem;">总计</span>
+                    <span data-v-4524ca02=""
+                        style="margin-left: 4.5rem; font-size: 0.3rem; color: rgb(204, 204, 204);">单位：KW·h</span></div>
+                <div data-v-4524ca02="" class="bom_rate_circle">
+                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;"><svg
+                            viewBox="0 0 1060 1060">
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                class="van-circle__hover"
+                                style="fill: none; stroke: rgb(235, 237, 240); stroke-width: 60px;"></path>
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                stroke="#e9444c" class="van-circle__layer"
+                                style="stroke: rgb(233, 68, 76); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
+                            </path>
+                        </svg>
+                        <div class="van-circle__text">0%峰电能</div>
+                    </div>
+                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;"><svg
+                            viewBox="0 0 1060 1060">
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                class="van-circle__hover"
+                                style="fill: none; stroke: rgb(251, 227, 182); stroke-width: 60px;"></path>
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                stroke="#f6b949" class="van-circle__layer"
+                                style="stroke: rgb(246, 185, 73); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
+                            </path>
+                        </svg>
+                        <div class="van-circle__text">0%平电能</div>
+                    </div>
+                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;"><svg
+                            viewBox="0 0 1060 1060">
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                class="van-circle__hover"
+                                style="fill: none; stroke: rgb(222, 238, 205); stroke-width: 60px;"></path>
+                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                                stroke="#90c557" class="van-circle__layer"
+                                style="stroke: rgb(144, 197, 87); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
+                            </path>
+                        </svg>
+                        <div class="van-circle__text">0%谷电能</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--    <footer>-->
+        <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
+        <!--    </footer>-->
+    </div>
+    <!-- 右边自定义对话框结构 -->
+    <div id="dialogRight" class="bui-dialog" style="display:none;">
+        <div class="bui-dialog-head">
+            <!-- 搜索条控件结构 -->
+            <div id="searchbar" class="bui-searchbar bui-box">
+                <div class="span1">
+                    <div class="bui-input">
+                        <i class="icon-search"></i>
+                        <input id="searchInput" type="search" value="" placeholder="" data-placeholder="ui_searchTip" />
+                    </div>
+                </div>
+                <div class="btn-search" data-i18n="ui_search"></div>
+            </div>
+        </div>
+        <div class="bui-dialog-main">
+            <div id="scrollList" class="bui-scroll">
+                <div class="bui-scroll-head"></div>
+                <div class="bui-scroll-main">
+                    <ul class="bui-list bui-list-thumbnail">
+                    </ul>
+                </div>
+                <div class="bui-scroll-foot"></div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/zepto.js"></script>
+    <script src="lib/bui.js"></script>
+    <script src="lib/echarts.min.js"></script>
+    <script src="lib/language.js"></script>
+    <script src="lib/config.js"></script>
+    <script src="js/CompoundRate.js"></script>
+</body>
+
+</html>
