@@ -148,5 +148,8 @@ bui.ready(function () {
     $("#jump12").on("click",function(){
         bui.load({url:"Proportion.html"});
     });
+    $("#jump13").on("click",function(){
+        bui.load({url:"3DBuild.html"});
+    });
 
 });
