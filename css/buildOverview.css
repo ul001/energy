@@ -62,9 +62,10 @@
 }
 
 #mainScrollList {
-    margin-top: .05rem;
+    margin-top: .5rem;
     background-color: initial;
-    height: calc(100% - 5.53rem);
+    /* height: calc(100% - 5.53rem); */
+    height: 3.3rem;
 }
 
 #mainScrollList.bui-list .liBox {
@@ -141,7 +142,7 @@
     font-weight: 600;
     color: #fff;
     font-size: 0.72rem;
-    margin-left: 1.2rem;
+    margin-left: 1rem;
 }
 
 .GetwayNumb a {
@@ -153,5 +154,5 @@
     margin-top: 0.8rem;
     color: #fff;
     font-size: 0.35rem;
-    margin-left: 1.0rem;
+    margin-left: 0.8rem;
 }

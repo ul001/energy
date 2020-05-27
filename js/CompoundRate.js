@@ -12,7 +12,11 @@ bui.ready(function () {
     var typeC = 'c';
     var saveBuild;
     var selectCurid;
+    var fengRate = '';
+    var pingRate = '';
+    var guRate = '';
     var getParams = bui.getPageParams();
+
     getParams.done(function (result) {
         console.log(result);
         selectCurid = result.curid;
@@ -71,7 +75,7 @@ bui.ready(function () {
         handle: "#datepicker_input",
         bindValue: true, // 1.5.3 新增, 修改的值会自动绑定到 handle, 不再需要自己去绑定
         // input 显示的日期格式
-        formatValue: "yyyy-MM-dd",
+        formatValue: "yyyy-MM",
         cols: {
             hour: "none",
             minute: "none",
@@ -90,7 +94,7 @@ bui.ready(function () {
     });
 
     var time = tool.initDate("YMD", new Date());
-    var reportType = "DD";
+    var reportType = "MM";
     //切换按钮 日月年
     var showtimeForElectSum = tool.initDate("YMD", new Date());
     initQuick(reportType);
@@ -234,58 +238,276 @@ bui.ready(function () {
         };
         energyObj.getDataByAjax("GET", "/api/MultiRate", param, function (data) {
             var html = "";
-            var times = [];
-            var yesVals = [];
-            var todayVals = [];
-            var unitStr = "";
-            data.forEach(function (el, index) {
-                var tongbi = "-";
-                var yesVal = "-";
-                var todayVal = "-";
-                var timeStr = "-";
-                if (reportType == "DD") {
-                    timeStr = parseInt(el.time.substring(11, 13)) + timeUnit;
-                } else if (reportType == "MM") {
-                    timeStr = parseInt(el.time.substring(8, 10)) + timeUnit;
-                } else if (reportType == "YY") {
-                    timeStr = parseInt(el.time.substring(5, 7)) + timeUnit;
-                }
-                times.push(timeStr);
-                if (el.currentValue != undefined) {
-                    todayVal = el.currentValue;
-                    todayVals.push(el.currentValue);
-                }
-                if (el.beforeValue != undefined) {
-                    yesVal = el.beforeValue;
-                    yesVals.push(el.beforeValue);
-                }
-            });
-            var chartData = {
-                time: times,
-                data1: {
-                    name: dataName2,
-                    yesVals
-                },
-                data2: {
-                    name: dataName1,
-                    todayVals
-                },
-                unit: unitStr
-            };
-            makeLine(chartData);
-            var pieData = {
-                data1: {
-                    name: dataName2,
-                    value: sum(yesVals).toFixed(2)
-                },
-                data2: {
-                    name: dataName1,
-                    value: sum(todayVals).toFixed(2)
-                },
-                unit: unitStr
-            };
-            makePie(pieData);
+            var days = [];
+            var months = [];
+            var names, dataAxis, series, values;
+            var FList = [];
+            var PList = [];
+            var GList = [];
+            var fSum = 0;
+            var pSum = 0;
+            var gSum = 0;
+            switch (reportType) {
+                case 'MM':
+                    for (let day = 1; day < 32; day++) {
+                        days.push(day + '日');
+                        //获取当日数据
+                        var todayArr = [];
+                        data.forEach(function (el, index) {
+                            var innerTime = new Date(el.time);
+                            if (day == innerTime.getDate()) {
+                                todayArr.push(el);
+                            }
+                        });
+                        if (todayArr.length == 0) {
+                            FList.push(0)
+                            PList.push(0)
+                            GList.push(0)
+                        } else if (todayArr.length > 0) {
+                            for (let i = 0; i < todayArr.length; i++) {
+                                if (todayArr[i].paramName == '峰电能') {
+                                    FList.push(todayArr[i].value)
+                                    fSum += todayArr[i].value;
+                                }
+                                if (todayArr[i].paramName == '平电能') {
+                                    PList.push(todayArr[i].value);
+                                    pSum += todayArr[i].value;
+                                }
+                                if (todayArr[i].paramName == '谷电能') {
+                                    GList.push(todayArr[i].value);
+                                    gSum += todayArr[i].value;
+                                }
+                            }
+                        }
+                        dataAxis = days;
+                        names = ['峰电能', '平电能', '谷电能'];
+                        series = [{
+                                name: '峰电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: FList
+                            },
+                            {
+                                name: '平电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: PList
+                            },
+                            {
+                                name: '谷电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: GList
+                            },
+                        ];
+                        values = [{
+                                name: '峰电能',
+                                value: fSum
+                            },
+                            {
+                                name: '平电能',
+                                value: pSum
+                            },
+                            {
+                                name: '谷电能',
+                                value: gSum
+                            },
+                        ]
+                        fengRate = (fSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                        pingRate = (pSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                        guRate = (gSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                    }
+                    break;
+                case 'YY':
+                    for (let month = 1; month < 13; month++) {
+                        months.push(month + '月');
+                        data.forEach(function (el, index) {
+                            var innerTime = new Date(el.time);
+                            if (day == innerTime.getDate()) {
+                                todayArr.push(el);
+                            }
+                        });
+                        if (todayArr.length == 0) {
+                            FList.push(0)
+                            PList.push(0)
+                            GList.push(0)
+                        } else if (todayArr.length > 0) {
+                            for (let i = 0; i < todayArr.length; i++) {
+                                if (todayArr[i].paramName == '峰电能') {
+                                    FList.push(todayArr[i].value)
+                                    fSum += todayArr[i].value;
+                                }
+                                if (todayArr[i].paramName == '平电能') {
+                                    PList.push(todayArr[i].value);
+                                    pSum += todayArr[i].value;
+                                }
+                                if (todayArr[i].paramName == '谷电能') {
+                                    GList.push(todayArr[i].value);
+                                    gSum += todayArr[i].value;
+                                }
+                            }
+                        }
+                        dataAxis = months;
+                        names = ['峰电能', '平电能', '谷电能']
+                        series = [{
+                                name: '峰电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: FList
+                            },
+                            {
+                                name: '平电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: PList
+                            },
+                            {
+                                name: '谷电能',
+                                type: 'bar',
+                                stack: '电能值',
+                                data: GList
+                            },
+                        ]
+                        values = [{
+                                name: '峰电能',
+                                value: fSum
+                            },
+                            {
+                                name: '平电能',
+                                value: pSum
+                            },
+                            {
+                                name: '谷电能',
+                                value: gSum
+                            },
+                        ]
+                        fengRate = (fSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                        pingRate = (pSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                        guRate = (gSum / (fSum + pSum + gSum).toFixed(1)) * 100;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            showStaxkBar('stackBar', names, series, dataAxis);
+            showPieRose('pieBar', names, values, '对比');
+            if (fengRate) {
+                var fengVal = fengRate / 100 * 3140;
+                $("#feng").css("stroke-dasharray", fengVal + 'px, 3140px');
+                $("#showFengText").text(fengRate.toFixed(0) + '%峰电能');
+            }
+            if (pingRate) {
+                var pingVal = pingRate / 100 * 3140;
+                $("#ping").css("stroke-dasharray", pingVal + 'px, 3140px');
+                $("#showPingText").text(pingRate.toFixed(0) + '%平电能');
+            }
+            if (guRate) {
+                var guVal = guRate / 100 * 3140;
+                $("#gu").css("stroke-dasharray", guVal + 'px, 3140px');
+                $("#showGuText").text(guRate.toFixed(0) + '%谷电能');
+            }
         });
+    }
+
+    function showPieRose(id, names, values, seriesName) {
+        var line = echarts.init(document.getElementById(id))
+        line.clear()
+        line.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'horizontal',
+                bottom: '0%',
+                data: names,
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            series: [{
+                name: seriesName,
+                type: 'pie',
+                top: '0',
+                radius: ['30%', '70%'],
+                center: ['50%', '50%'],
+                roseType: 'radius',
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                data: values,
+            }],
+            color: ['#e9444c', '#f6b949', '#90c557']
+        })
+    }
+
+    function showStaxkBar(id, names, series, seriesName) {
+        var line = echarts.init(document.getElementById(id))
+        line.clear()
+        line.setOption({
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                top: 15,
+                left: 55
+            },
+            legend: {
+                orient: 'horizontal',
+                bottom: '0%',
+                data: names,
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            xAxis: [{
+                type: 'category',
+                data: seriesName,
+                splitLine: {
+                    show: false
+                }, //去除网格线
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: 'rgb(0,173,169)', //左边线的颜色
+                        width: '1.5' //坐标线的宽度
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: 'black', //坐标值得具体的颜色
+                    }
+                }
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: true
+                }, //去除网格线
+                axisLine: {
+                    lineStyle: {
+                        type: 'solid',
+                        color: 'rgb(0,173,169)',
+                        width: '1.5'
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: 'black'
+                    }
+                }
+            }],
+            series: series,
+            color: ['#e9444c', '#f6b949', '#90c557']
+        })
     }
 
     function sum(arr) {

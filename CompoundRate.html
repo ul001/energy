@@ -30,10 +30,10 @@
         </header>
         <main>
             <div class="bui-box">
-                <button class="span2 button dateBtn btn_active" id="DD" value="DD">
+                <!-- <button class="span2 button dateBtn btn_active" id="DD" value="DD">
                     日
-                </button>
-                <button class="span2 button dateBtn" id="MM" value="MM">月</button>
+                </button> -->
+                <button class="span2 button dateBtn btn_active" id="MM" value="MM">月</button>
                 <button class="span2 button dateBtn" id="YY" value="YY">年</button>
                 <span class="down span1" id="datePre"></span>
                 <div class="dataTime span5 bui-box-center">
@@ -41,8 +41,8 @@
                 </div>
                 <span class="pull span1" id="dateNext"></span>
             </div>
-            <div id="chartBox"></div>
-            <div id="pieBox"></div>
+            <div id="stackBar" class="stackBar"></div>
+            <div id="pieBar" class="pieBar"></div>
             <div data-v-4524ca02="" class="total">
                 <div data-v-4524ca02="" class="title">
                     <img data-v-4524ca02=""
@@ -54,41 +54,41 @@
                         style="margin-left: 3.5rem; font-size: 0.23rem; color: rgb(204, 204, 204);">单位：KW·h</span>
                 </div>
                 <div data-v-4524ca02="" class="bom_rate_circle">
-                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;">
+                    <div data-v-4524ca02="" class="van-circle" style="width: 1.9rem; height: 1.9rem;">
                         <svg viewBox="0 0 1060 1060">
                             <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 class="van-circle__hover"
                                 style="fill: none; stroke: rgb(235, 237, 240); stroke-width: 60px;"></path>
-                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                            <path id="feng" d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 stroke="#e9444c" class="van-circle__layer"
                                 style="stroke: rgb(233, 68, 76); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
                             </path>
                         </svg>
-                        <div class="van-circle__text">0%峰电能</div>
+                        <div class="van-circle__text" id="showFengText">0%峰电能</div>
                     </div>
-                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;">
+                    <div data-v-4524ca02="" class="van-circle" style="width: 1.9rem; height: 1.9rem;">
                         <svg viewBox="0 0 1060 1060">
                             <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 class="van-circle__hover"
                                 style="fill: none; stroke: rgb(251, 227, 182); stroke-width: 60px;"></path>
-                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                            <path id="ping" d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 stroke="#f6b949" class="van-circle__layer"
                                 style="stroke: rgb(246, 185, 73); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
                             </path>
                         </svg>
-                        <div class="van-circle__text">0%平电能</div>
+                        <div class="van-circle__text" id="showPingText">0%平电能</div>
                     </div>
-                    <div data-v-4524ca02="" class="van-circle" style="width: 100px; height: 100px;">
+                    <div data-v-4524ca02="" class="van-circle" style="width: 1.9rem; height: 1.9rem;">
                         <svg viewBox="0 0 1060 1060">
                             <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 class="van-circle__hover"
                                 style="fill: none; stroke: rgb(222, 238, 205); stroke-width: 60px;"></path>
-                            <path d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
+                            <path id="gu" d="M 530 530 m 0, -500 a 500, 500 0 1, 1 0, 1000 a 500, 500 0 1, 1 0, -1000"
                                 stroke="#90c557" class="van-circle__layer"
                                 style="stroke: rgb(144, 197, 87); stroke-width: 61px; stroke-dasharray: 0px, 3140px;">
                             </path>
                         </svg>
-                        <div class="van-circle__text">0%谷电能</div>
+                        <div class="van-circle__text" id="showGuText">0%谷电能</div>
                     </div>
                 </div>
             </div>

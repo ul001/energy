@@ -1,7 +1,7 @@
 .total {
     height: 4rem;
     background: #fff;
-    margin: 0.1rem 0.2rem 0.1rem 0.2rem;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
     border-radius: 0.186667rem;
 }
 
@@ -12,7 +12,7 @@
 .title img {
     float: left;
     width: 0.5rem;
-    margin-left: 0.4rem;
+    margin-left: 0.3rem;
 }
 
 .bom_rate_circle {
@@ -56,4 +56,20 @@ path.van-circle__layer {
     color: #323233;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+#pieBar {
+    height: 5rem;
+    margin: 0.1rem;
+    margin-bottom: 0;
+    background: #fff !important;
+    border-radius: 0.2rem;
+}
+
+#stackBar {
+    height: 5rem;
+    margin: 0.1rem;
+    margin-bottom: 0;
+    background: #fff !important;
+    border-radius: 0.2rem;
 }
