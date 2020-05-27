@@ -1,0 +1,75 @@
+.total {
+    height: 4rem;
+    background: #fff;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0.186667rem;
+}
+
+.title {
+    padding-top: 0.3rem;
+}
+
+.title img {
+    float: left;
+    width: 0.5rem;
+    margin-left: 0.3rem;
+}
+
+.bom_rate_circle {
+    padding-top: 0.5rem;
+}
+
+.bom_rate_circle .van-circle {
+    float: left;
+    margin-left: 0.4rem;
+}
+
+.van-circle {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.van-circle svg {
+    height: 100%;
+    top: 0;
+}
+
+.van-circle svg,
+.van-circle__text {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.van-circle__layer {
+    fill: none;
+    stroke-linecap: round;
+}
+
+path.van-circle__layer {
+    stroke: rgb(233, 68, 76);
+}
+
+.van-circle__text {
+    top: 50%;
+    color: #323233;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#pieBar {
+    height: 5rem;
+    margin: 0.1rem;
+    margin-bottom: 0;
+    background: #fff !important;
+    border-radius: 0.2rem;
+}
+
+#stackBar {
+    height: 5rem;
+    margin: 0.1rem;
+    margin-bottom: 0;
+    background: #fff !important;
+    border-radius: 0.2rem;
+}
