@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>趋势统计</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/bui.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/paramQuery.css"/>
+</head>
+<body>
+<div class="bui-page bui-box-vertical">
+    <header>
+        <!-- 固定顶部区 -->
+        <div class="bui-bar">
+            <div class="bui-bar-left bui-bar-text">
+                <a class="bui-btn" onclick="bui.back();"><i class="icon-back"></i><span
+                        data-i18n="ui_back"></span></a>
+            </div>
+            <div class="bui-bar-main">参数查询</div>
+            <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
+        </div>
+    </header>
+    <main>
+        <div class="bui-box-align-middle">
+            <span class="span2">日期选择：</span>
+            <span class="down span1" id="datePre"></span>
+            <div class="dataTime span5 bui-box-center">
+                <input type="text" id="datepicker_input" readonly class="bui-input"/>
+            </div>
+            <span class="pull span1" id="dateNext"></span>
+            <span class="span1"></span>
+        </div>
+        <ul class="bui-nav-icon third-class">
+            <li class="bui-btn" data-value="yougong">
+                <div class="bui-icon"><img src="img/gonglv_p.png"></div>
+                <div class="span1" data-i18n="">有功功率</div>
+            </li>
+            <li class="bui-btn" data-value="wugong">
+                <div class="bui-icon"><img src="img/gonglv_p.png"></div>
+                <div class="span1" data-i18n="">无功功率</div>
+            </li>
+            <li class="bui-btn" data-value="shizai">
+                <div class="bui-icon"><img src="img/gonglv_p.png"></div>
+                <div class="span1" data-i18n="">视在功率</div>
+            </li>
+            <li class="bui-btn" data-value="xiangU">
+                <div class="bui-icon"><img src="img/dianya.png"></div>
+                <div class="span1" data-i18n="">相电压</div>
+            </li>
+            <li class="bui-btn" data-value="xianU">
+                <div class="bui-icon"><img src="img/dianya.png"></div>
+                <div class="span1" data-i18n="">线电压</div>
+            </li>
+            <li class="bui-btn" data-value="dianliu">
+                <div class="bui-icon"><img src="img/dianliu.png"></div>
+                <div class="span1" data-i18n="">电流</div>
+            </li>
+        </ul>
+        <div class="checkDiv bui-box">
+            <div class="span1 selectSpan bui-btn yougong">
+                <label for="yougong1">
+                    <input id="yougong1" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000709" text="" checked="checked">
+                    有功功率
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn wugong">
+                <label for="wugong1">
+                    <input id="wugong1" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000710" text="" checked="checked">
+                    无功功率
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn shizai">
+                <label for="shizai1">
+                    <input id="shizai1" type="checkbox" class="bui-choose" name="interester2"
+                           value="3100000000070736" text="" checked="checked">
+                    总视在功率
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xiangU">
+                <label for="xiangU1">
+                    <input id="xiangU1" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000700" text="" checked="checked">
+                    A相电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xiangU">
+                <label for="xiangU2">
+                    <input id="xiangU2" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000701" text="" checked="checked">
+                    B相电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xiangU">
+                <label for="xiangU3">
+                    <input id="xiangU3" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000702" text="" checked="checked">
+                    C相电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xianU">
+                <label for="xianU1">
+                    <input id="xianU1" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000703" text="" checked="checked">
+                    AB线电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xianU">
+                <label for="xianU2">
+                    <input id="xianU2" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000704" text="" checked="checked">
+                    BC线电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn xianU">
+                <label for="xianU3">
+                    <input id="xianU3" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000705" text="" checked="checked">
+                    CA线电压
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn dianliu">
+                <label for="dianliu1">
+                    <input id="dianliu1" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000706" text="" checked="checked">
+                    A相电流
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn dianliu">
+                <label for="dianliu2">
+                    <input id="dianliu2" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000707" text="" checked="checked">
+                    B相电流
+                </label>
+            </div>
+            <div class="span1 selectSpan bui-btn dianliu">
+                <label for="dianliu3">
+                    <input id="dianliu3" type="checkbox" class="bui-choose" name="interester2"
+                           value="31000000000708" text="" checked="checked">
+                    C相电流
+                </label>
+            </div>
+        </div>
+        <div id="chartBox">
+
+        </div>
+        <ul id="tableBox" class="bui-list">
+            <li class="paramLi">
+                <h3 class="bui-box">
+                    <span class="span3 blueSpan">参数名称</span>
+                    <span class="span2 yellowSpan">平均值</span>
+                    <span class="span2 yellowSpan">最大值</span>
+                    <span class="span2 yellowSpan">最小值</span>
+                </h3>
+            </li>
+            <li class="paramLi">
+                <h3 class="bui-box">
+                    <span class="span3 blueSpan">【系统】</span>
+                    <span class="span2 yellowSpan">2</span>
+                    <span class="span2 yellowSpan">3</span>
+                    <span class="span2 yellowSpan">3</span>
+                </h3>
+            </li>
+        </ul>
+    </main>
+    <!--    <footer>-->
+    <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
+    <!--    </footer>-->
+</div>
+<!-- 右边自定义对话框结构 -->
+<div id="dialogRight" class="bui-dialog" style="display:none;">
+    <div class="bui-dialog-head">
+        <!-- 搜索条控件结构 -->
+        <div id="searchbar" class="bui-searchbar bui-box">
+            <div class="span1">
+                <div class="bui-input">
+                    <i class="icon-search"></i>
+                    <input id="searchInput" type="search" value="" placeholder=""
+                           data-placeholder="ui_searchTip"/>
+                </div>
+            </div>
+            <div class="btn-search" data-i18n="ui_search"></div>
+        </div>
+        <ul class="bui-box-center top-class">
+            <li class="span1 bui-box-center" data-type="c"><img src="img/zhilu_h.png"><span
+                    data-i18n="slipRoad"></span></li>
+            <li class="span1 bui-box-center" data-type="i"><img src="img/fenxiang_h.png"><span
+                    data-i18n="subOption"></span></li>
+            <li class="span1 bui-box-center" data-type="r"><img src="img/quyu_h.png"><span
+                    data-i18n="area"></span></li>
+            <li class="span1 bui-box-center" data-type="d"><img src="img/bumen_h.png"><span
+                    data-i18n="department"></span></li>
+        </ul>
+        <ul class="bui-nav-icon secord-class">
+            <li class="bui-btn" data-value="01000">
+                <div class="bui-icon"><img src="img/dian.png"></div>
+                <div class="span1" data-i18n="">电</div>
+            </li>
+            <li class="bui-btn" data-value="02000">
+                <div class="bui-icon"><img src="img/shui.png"></div>
+                <div class="span1" data-i18n="">水</div>
+            </li>
+            <li class="bui-btn" data-value="13000">
+                <div class="bui-icon"><img src="img/solar.png"></div>
+                <div class="span1" data-i18n="">光伏</div>
+            </li>
+            <li class="bui-btn" data-value="03000">
+                <div class="bui-icon"><img src="img/ranqi.png"></div>
+                <div class="span1" data-i18n="">燃气</div>
+            </li>
+            <li class="bui-btn" data-value="40000">
+                <div class="bui-icon"><img src="img/zhengqi.png"></div>
+                <div class="span1" data-i18n="">蒸汽</div>
+            </li>
+            <li class="bui-btn" data-value="05000">
+                <div class="bui-icon"><img src="img/cold.png"></div>
+                <div class="span1" data-i18n="">冷量</div>
+            </li>
+            <li class="bui-btn" data-value="04000">
+                <div class="bui-icon"><img src="img/hot.png"></div>
+                <div class="span1" data-i18n="">热量</div>
+            </li>
+            <li class="bui-btn" data-value="20000">
+                <div class="bui-icon"><img src="img/air.png"></div>
+                <div class="span1" data-i18n="">压缩空气</div>
+            </li>
+        </ul>
+    </div>
+    <div class="bui-dialog-main">
+        <div id="scrollList" class="bui-scroll">
+            <div class="bui-scroll-head"></div>
+            <div class="bui-scroll-main">
+                <ul class="bui-list bui-list-thumbnail">
+                </ul>
+            </div>
+            <div class="bui-scroll-foot"></div>
+        </div>
+    </div>
+</div>
+<script src="lib/zepto.js"></script>
+<script src="lib/bui.js"></script>
+<script src="lib/echarts.min.js"></script>
+<script src="lib/language.js"></script>
+<script src="lib/config.js"></script>
+<script src="js/paramQuery.js"></script>
+</body>
+</html>
