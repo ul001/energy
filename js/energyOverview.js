@@ -106,14 +106,6 @@ bui.ready(function() {
                 data: "data"
             },
             callback: function(e) {
-                // e.target 为你当前点击的元素
-                // e.currentTarget 为你当前点击的handle 整行
-                var buildId = $(e.currentTarget).attr("data-id");
-                var buildName = $(e.currentTarget).attr("data-name");
-                var clickBuild = {id:buildId,name:buildName};
-                storage.set("build", JSON.stringify(clickBuild));
-                $(".bui-bar-main").html(buildName);
-                uiDialogRight.close();
             },
             template: function(data) {
                 var html = "";
@@ -270,7 +262,7 @@ bui.ready(function() {
                 html += `<li class="bui-btn bui-box" data-id="${el.id}" data-name="${el.name}">
                              <div class="icon"><i class="icon-sub"></i></div>
                              <div class="span1">${el.name}</div>
-                         </li>`
+                         </li>`;
             });
             return html;
         },
