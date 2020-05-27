@@ -236,7 +236,7 @@ bui.ready(function () {
             time: timeParam,
             ids: curid,
         };
-        energyObj.getDataByAjax("GET", "/api/MultiRate", param, function (data) {
+        energyObj.postJSONByAjax("POST", "/api/MultiRate", param, function (data) {
             var html = "";
             var days = [];
             var months = [];
