@@ -65,7 +65,7 @@
 }
 
 .third-class li{
-    width:24%;
+    width:25%;
     display:inline-block;
 }
 
@@ -228,4 +228,15 @@ main{
     background: #eee;
     margin: 0.1rem;
     padding:.2rem .3rem;
+}
+
+.selectSpan label{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+}
+
+.selectSpan label input{
+    margin:0;
 }

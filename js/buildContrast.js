@@ -262,13 +262,6 @@ bui.ready(function () {
         buttons: []
     });
 
-    try {
-        var saveBuild = JSON.parse(storage.get("build"));
-        $(".bui-bar-main").html(saveBuild.name);
-    } catch (e) {
-        // uiDialogRight.open();
-    }
-
     $("#searchA").on("click", function () {
         uiDialogRight.open();
     });

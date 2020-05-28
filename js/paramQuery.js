@@ -21,6 +21,7 @@ bui.ready(function() {
                 var curObj = JSON.parse(storage.get("curObj"));
                 selectCurid = curObj.id;
                 $(".bui-bar-main").html(curObj.name);
+                getParamSelect();
             }catch(e){
                 uiDialogRight.open();
             };
@@ -64,19 +65,66 @@ bui.ready(function() {
         });
     });
 
-    $(".third-class .bui-btn").on("click", function() {
-        $(this).addClass("selected").siblings().removeClass("selected");
-        var className = $(".third-class .bui-btn.selected").attr("data-value");
-        $(".checkDiv .selectSpan").removeClass("showSpan");
-        $("."+className).addClass("showSpan");
-        $("."+className+" input").prop("checked",true);
-        if(selectCurid!=undefined){
-            getMainData(selectCurid);
-        }
-    });
-
     $($(".top-class li")[0]).addClass("active");
     $($(".secord-class .bui-btn")[0]).addClass("selected");
+
+    function getParamSelect(){
+        if(selectCurid!=undefined){
+            energyObj.getDataByAjax("GET","/api/ParameterData/GetParamInfo","circuitID="+selectCurid,function(data){
+                var html1='';
+                data.parameterClssify.forEach(function(el,index){
+                    var imgSrc = "";
+                    if(el.name.indexOf("电压")!=-1){
+                        imgSrc="img/dianya_p.png";
+                    }else if(el.name.indexOf("电流")!=-1){
+                        imgSrc="img/dianliu_p.png";
+                    }else if(el.name.indexOf("功率因数")!=-1){
+                        imgSrc="img/gonglvyinshu_p.png";
+                    }else if(el.name.indexOf("电能")!=-1){
+                        imgSrc="img/energy_unAc.png";
+                    }else if(el.name.indexOf("需量")!=-1){
+                        imgSrc="img/xuliang_p.png";
+                    }else if(el.name.indexOf("功率")!=-1){
+                        imgSrc="img/gonglv_p.png";
+                    }
+                    if(el.name.indexOf("谐波")==-1){
+                        html1 += `<li class="bui-btn" data-value="${el.id}">
+                                      <div class="bui-icon"><img src="${imgSrc}"></div>
+                                      <div class="span1">${el.name}</div>
+                                  </li>`;
+                    }
+                });
+                $(".third-class").html(html1);
+                var html2 = "";
+                data.parameterList.forEach(function(el,index){
+                    if(el.name.indexOf("谐波")==-1){
+                        html2 += `<div class="span1 selectSpan bui-btn" data-code="${el.code}">
+                                      <label for="${el.id}">
+                                          <input id="${el.id}" type="checkbox" class="bui-choose" name="interester2"
+                                                 value="${el.id}" text="" checked="checked">
+                                          ${el.name}
+                                      </label>
+                                  </div>`;
+                    }
+                });
+                $(".checkDiv").html(html2);
+                $(".third-class .bui-btn").on("click", function() {
+                    $(this).addClass("selected").siblings().removeClass("selected");
+                    var className = $(".third-class .bui-btn.selected").attr("data-value");
+                    $(".checkDiv .selectSpan").removeClass("showSpan");
+                    $(".checkDiv .selectSpan[data-code='"+className+"']").addClass("showSpan");
+                    $(".checkDiv .selectSpan[data-code='"+className+"'] input").prop("checked",true);
+                    if(selectCurid!=undefined){
+                        getMainData(selectCurid);
+                    }
+                });
+                $(".third-class .bui-btn")[0].click();
+                $(".selectSpan input").on("change",function(){
+                    getMainData(selectCurid);
+                });
+            });
+        }
+    }
 
     var uiPickerdate = bui.pickerdate({
         handle: "#datepicker_input",
@@ -125,10 +173,6 @@ bui.ready(function() {
             }
         });
     }
-
-    $(".selectSpan input").on("change",function(){
-        getMainData(selectCurid);
-    });
 
     function avgArr(arr) {
         var s = 0;
@@ -353,6 +397,7 @@ bui.ready(function() {
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
             selectCurid = buildId;
+            getParamSelect();
             getMainData(buildId);
         },
         template: function(data) {
