@@ -10,17 +10,14 @@ bui.ready(function () {
     });
 
     var saveBuild;
-    var selectCurid;
-    var getParams = bui.getPageParams();
-    getParams.done(function (result) {
-        console.log(result);
-        selectCurid = result.curid;
-        $(".bui-bar-main").html(result.curname);
-        // {id:"page2"}
-    });
-    try {
+    var selectBuildId;
+    try{
         saveBuild = JSON.parse(storage.get("build"));
-    } catch (e) {};
+        $(".bui-bar-main").html(saveBuild.name);
+        selectBuildId = saveBuild.id;
+    }catch(e){
+        uiDialogRight.open();
+    };
 
     $('#btnOpenFilter').on("click", function () {
         uiDialogRight.open();
@@ -52,7 +49,7 @@ bui.ready(function () {
                 "type": $(".top-class .active").attr("data-type"),
             }
         });
-        getMainData(selectCurid);
+        getMainData();
     });
 
     $($(".top-class li")[0]).addClass("active");
@@ -74,7 +71,7 @@ bui.ready(function () {
             console.log(e.target);
             console.log(this.value());
             time = this.value();
-            getMainData(selectCurid);
+            getMainData();
         }
         // 如果不需要按钮,设置为空
         // buttons: [{name:"取消"}]
@@ -126,7 +123,7 @@ bui.ready(function () {
             .removeClass("btn_active");
         reportType = obj.val();
         initQuick(reportType);
-        getMainData(selectCurid);
+        getMainData();
     });
 
     function initQuick(type) {
@@ -137,7 +134,7 @@ bui.ready(function () {
                 var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.getTime() - 24 * 60 * 60 * 1000);
                 $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)) + "-" + (preDate.getDate() < 10 ? ("0" + preDate.getDate()) : (preDate.getDate())));
-                getMainData(selectCurid);
+                getMainData();
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -146,7 +143,7 @@ bui.ready(function () {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.getTime() + 24 * 60 * 60 * 1000);
                     $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)) + "-" + (nextDate.getDate() < 10 ? ("0" + nextDate.getDate()) : (nextDate.getDate())));
-                    getMainData(selectCurid);
+                    getMainData();
                 } else {
                     return;
                 }
@@ -156,7 +153,7 @@ bui.ready(function () {
                 var selectDate = new Date(($("#datepicker_input").val() + "-01").replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.setMonth(selectDate.getMonth() - 1));
                 $("#datepicker_input").val(preDate.getFullYear() + "-" + ((preDate.getMonth()) < 9 ? ("0" + (preDate.getMonth() + 1)) : (preDate.getMonth() + 1)));
-                getMainData(selectCurid);
+                getMainData();
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -165,7 +162,7 @@ bui.ready(function () {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.setMonth(selectDate.getMonth() + 1));
                     $("#datepicker_input").val(nextDate.getFullYear() + "-" + ((nextDate.getMonth()) < 9 ? ("0" + (nextDate.getMonth() + 1)) : (nextDate.getMonth() + 1)));
-                    getMainData(selectCurid);
+                    getMainData();
                 } else {
                     return;
                 }
@@ -175,7 +172,7 @@ bui.ready(function () {
                 var selectDate = new Date($("#datepicker_input").val().replace(/\-/g, "\/"));
                 var preDate = new Date(selectDate.setFullYear(selectDate.getFullYear() - 1));
                 $("#datepicker_input").val(preDate.getFullYear());
-                getMainData(selectCurid);
+                getMainData();
             });
             $("#dateNext").click(function () {
                 var d = new Date();
@@ -184,7 +181,7 @@ bui.ready(function () {
                 if (selectDate < nowDate) {
                     var nextDate = new Date(selectDate.setFullYear(selectDate.getFullYear() + 1));
                     $("#datepicker_input").val(nextDate.getFullYear());
-                    getMainData(selectCurid);
+                    getMainData();
                 } else {
                     return;
                 }
@@ -192,7 +189,7 @@ bui.ready(function () {
         }
     }
 
-    function getMainData(curid) {
+    function getMainData() {
         $("#mainScrollList").empty();
         var reportTypeStr = $(".btn_active").attr("value");
         var timeUnit;
@@ -216,7 +213,7 @@ bui.ready(function () {
             timeParam = $("#datepicker_input").val() + "-01-01";
         }
         var param = {
-            buildID: buildId,
+            buildID: selectBuildId,
             code: $(".secord-class .bui-btn.selected").attr("data-value"),
             // type: $(".top-class .active").attr("data-type"),
             // reportType: reportTypeStr,
@@ -479,7 +476,8 @@ bui.ready(function () {
             storage.set("build", JSON.stringify(clickBuild));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
-            getMainData(selectCurid);
+            selectBuildId = buildId;
+            getMainData();
         },
         template: function (data) {
             var html = "";
@@ -507,9 +505,9 @@ bui.ready(function () {
         }
     });
 
-    if (selectCurid == undefined) {
+    if (selectBuildId == undefined) {
         uiDialogRight.open();
     } else {
-        getMainData(selectCurid);
+        getMainData();
     }
 });
