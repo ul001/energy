@@ -3,6 +3,7 @@ bui.ready(function () {
     var time = tool.initDate("YMD", new Date());
     var reportType = "DD";
     var buildId;
+    var selectBuildId;
     // time = new Date(time.replace(/\-/g, "\/"));
     // 带按钮
     var uiPickerdate = bui.pickerdate({
@@ -39,6 +40,7 @@ bui.ready(function () {
     try {
         var saveBuild = JSON.parse(storage.get("build"));
         $(".bui-bar-main").html(saveBuild.name);
+        selectBuildId = saveBuild.id;
     } catch (e) {
         uiDialogRight.open();
     }
@@ -178,7 +180,6 @@ bui.ready(function () {
                 textStyle: {
                     fontWeight: "small"
                 },
-
                 right: "10",
                 top: 10
             }],
@@ -195,56 +196,51 @@ bui.ready(function () {
                     Operation["ui_ping"],
                     Operation["ui_gu"]
                 ],
-                bottom: 50
+                bottom: 0
             },
             grid: {
                 top: "51%",
                 left: "13%",
                 right: "5%",
-                bottom: "20%"
+                bottom: "0%"
             },
-
-            toolbox: {
-                left: "right",
-                top: "45%",
-                feature: {
-                    dataZoom: {
-                        yAxisIndex: "none"
-                    },
-                    dataView: {
-                        readOnly: true
-                    },
-                    restore: {}
-                }
-            },
-
-            series: [
-
-                {
-                    name: Operation["ui_proportion"],
-                    type: "pie",
-                    radius: ["20%", "45%"],
-                    center: ["50%", "25%"],
-                    label: {
-                        normal: {
-                            position: "inner",
-                            formatter: function (data) {
-                                return (
-                                    data.name +
-                                    "\n" +
-                                    data.value +
-                                    "\n" +
-                                    "(" +
-                                    data.percent.toFixed(2) +
-                                    "%)"
-                                );
-                            }
+            // toolbox: {
+            //     left: "right",
+            //     top: "15%",
+            //     feature: {
+            //         dataZoom: {
+            //             yAxisIndex: "none"
+            //         },
+            //         dataView: {
+            //             readOnly: true
+            //         },
+            //         restore: {}
+            //     }
+            // },
+            series: [{
+                name: Operation["ui_proportion"],
+                type: "pie",
+                radius: ["20%", "45%"],
+                center: ["50%", "50%"],
+                label: {
+                    normal: {
+                        position: "inner",
+                        formatter: function (data) {
+                            return (
+                                data.name +
+                                "\n" +
+                                data.value +
+                                "\n" +
+                                "(" +
+                                data.percent.toFixed(2) +
+                                "%)"
+                            );
                         }
-                    },
-                    color: ["#c23531", "#EDBA5E"],
-                    data: barData
-                }
-            ]
+                    }
+                },
+                color: ["#c23531", "#EDBA5E"],
+                data: barData
+            }]
         };
         bar.setOption(option);
     }
@@ -255,7 +251,7 @@ bui.ready(function () {
         energyObj.getDataByAjax(
             "GET",
             "/api/app/AppStandardCoal", {
-                buildId: buildId,
+                buildId: selectBuildId,
                 reportType: reportType,
                 time: time
             },
@@ -291,6 +287,7 @@ bui.ready(function () {
                 id: buildId,
                 name: buildName
             };
+            selectBuildId = buildId;
             storage.set("build", JSON.stringify(clickBuild));
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
@@ -320,5 +317,9 @@ bui.ready(function () {
             console.log("loaded");
         }
     });
-    return uiList;
+    if (selectBuildId == undefined) {
+        uiDialogRight.open();
+    } else {
+        initData();
+    }
 });

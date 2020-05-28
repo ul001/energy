@@ -11,11 +11,11 @@ bui.ready(function () {
 
     var saveBuild;
     var selectBuildId;
-    try{
+    try {
         saveBuild = JSON.parse(storage.get("build"));
         $(".bui-bar-main").html(saveBuild.name);
         selectBuildId = saveBuild.id;
-    }catch(e){
+    } catch (e) {
         uiDialogRight.open();
     };
 
@@ -367,6 +367,15 @@ bui.ready(function () {
 
     function makeLine(chartData) {
         var option = {
+            noDataLoadingOption: {
+                effect: "bubble",
+                text: "暂无数据",
+                effectOption: {
+                    effect: {
+                        n: 0
+                    }
+                }
+            },
             color: ['#2EC7C9', '#B6A2DE', '#3CA4E4', '#FFB980'],
             tooltip: {
                 trigger: 'axis'
