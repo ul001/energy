@@ -289,6 +289,7 @@ bui.ready(function () {
             };
             selectBuildId = buildId;
             storage.set("build", JSON.stringify(clickBuild));
+            storage.remove("curObj");
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
         },

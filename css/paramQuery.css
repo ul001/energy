@@ -213,6 +213,8 @@ main{
 #tableBox{
     margin:.1rem 0;
     padding:.1rem 0;
+    height: calc(100% - 8.46rem);
+    overflow:auto;
     background:#fff;
 }
 

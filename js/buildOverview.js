@@ -503,6 +503,7 @@ bui.ready(function () {
                 name: buildName
             };
             storage.set("build", JSON.stringify(clickBuild));
+            storage.remove("curObj");
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
             selectBuildId = buildId;

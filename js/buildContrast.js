@@ -440,6 +440,7 @@ bui.ready(function () {
                 name: buildName
             };
             storage.set("build", JSON.stringify(clickBuild));
+            storage.remove("curObj");
             $("#buildName1").val(buildName);
             uiDialogRight.close();
             initData();

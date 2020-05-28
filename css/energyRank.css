@@ -136,6 +136,8 @@
     background-color:#fff;
     padding:.1rem;
     border-radius: 0.2rem;
+    height: calc(100% - 9.43rem);
+    overflow: auto;
 }
 
 .bui-fluid-space-2{

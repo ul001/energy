@@ -350,6 +350,7 @@ bui.ready(function() {
             var buildName = $(e.currentTarget).attr("data-name");
             var clickBuild = {id:buildId,name:buildName};
             storage.set("build", JSON.stringify(clickBuild));
+            storage.remove("curObj");
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
             selectBuildId = buildId;

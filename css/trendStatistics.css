@@ -64,6 +64,7 @@
     margin-top:.05rem;
     background-color:initial;
     height:calc(100% - 5.53rem);
+    overflow:auto;
 }
 
 #mainScrollList.bui-list .liBox{
