@@ -321,9 +321,10 @@ bui.ready(function () {
                 case 'YY':
                     for (let month = 1; month < 13; month++) {
                         months.push(month + '月');
+                        var todayArr = [];
                         data.forEach(function (el, index) {
                             var innerTime = new Date(el.time);
-                            if (day == innerTime.getDate()) {
+                            if (month == innerTime.getMonth() + 1) {
                                 todayArr.push(el);
                             }
                         });
@@ -395,16 +396,25 @@ bui.ready(function () {
                 var fengVal = fengRate / 100 * 3140;
                 $("#feng").css("stroke-dasharray", fengVal + 'px, 3140px');
                 $("#showFengText").text(fengRate.toFixed(0) + '%峰电能');
+            } else {
+                $("#feng").css("stroke-dasharray", '0px, 3140px');
+                $("#showFengText").text('0%峰电能');
             }
             if (pingRate) {
                 var pingVal = pingRate / 100 * 3140;
                 $("#ping").css("stroke-dasharray", pingVal + 'px, 3140px');
                 $("#showPingText").text(pingRate.toFixed(0) + '%平电能');
+            } else {
+                $("#ping").css("stroke-dasharray", '0px, 3140px');
+                $("#showPingText").text('0%平电能');
             }
             if (guRate) {
                 var guVal = guRate / 100 * 3140;
                 $("#gu").css("stroke-dasharray", guVal + 'px, 3140px');
                 $("#showGuText").text(guRate.toFixed(0) + '%谷电能');
+            } else {
+                $("#gu").css("stroke-dasharray", '0px, 3140px');
+                $("#showGuText").text('0%谷电能');
             }
         });
     }
@@ -423,6 +433,15 @@ bui.ready(function () {
                 data: names,
                 textStyle: {
                     color: 'black'
+                }
+            },
+            noDataLoadingOption: {
+                text: '暂无数据',
+                effect: 'bubble',
+                effectOption: {
+                    effect: {
+                        n: 0
+                    }
                 }
             },
             series: [{
@@ -505,6 +524,15 @@ bui.ready(function () {
                     }
                 }
             }],
+            noDataLoadingOption: {
+                text: '暂无数据',
+                effect: 'bubble',
+                effectOption: {
+                    effect: {
+                        n: 0
+                    }
+                }
+            },
             series: series,
             color: ['#e9444c', '#f6b949', '#90c557']
         })
@@ -658,12 +686,11 @@ bui.ready(function () {
         data: {
             code: compoundCode,
             type: typeC,
-            buildId: saveBuild.id ? saveBuild.id : '000001G003',
+            buildId: saveBuild.id,
             keyWord: $("#searchInput").val(),
         },
         //如果分页的字段名不一样,通过field重新定义
         field: {
-            page: "pageIndex",
             size: "pageSize",
             data: "data"
         },

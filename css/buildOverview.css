@@ -141,8 +141,8 @@
 .GetwayNumb span {
     font-weight: 600;
     color: #fff;
-    font-size: 0.72rem;
-    margin-left: 1rem;
+    font-size: 0.6rem;
+    margin-left: 0.9rem;
 }
 
 .GetwayNumb a {
@@ -154,5 +154,5 @@
     margin-top: 0.8rem;
     color: #fff;
     font-size: 0.35rem;
-    margin-left: 0.8rem;
+    margin-left: 0.7rem;
 }
