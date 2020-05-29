@@ -204,24 +204,26 @@ bui.ready(function () {
                 right: "5%",
                 bottom: "0%"
             },
-            // toolbox: {
-            //     left: "right",
-            //     top: "15%",
-            //     feature: {
-            //         dataZoom: {
-            //             yAxisIndex: "none"
-            //         },
-            //         dataView: {
-            //             readOnly: true
-            //         },
-            //         restore: {}
-            //     }
-            // },
+            toolbox: {
+                show: true,
+                orient: 'horizontal',
+                top: -6,
+                feature: {
+                    dataView: {
+                        readOnly: true
+                    },
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {}
+                }
+            },
             series: [{
                 name: Operation["ui_proportion"],
                 type: "pie",
                 radius: ["20%", "45%"],
                 center: ["50%", "50%"],
+                // roseType: 'radius',
                 label: {
                     normal: {
                         position: "inner",
