@@ -1,4 +1,4 @@
-bui.ready(function() {
+bui.ready(function () {
     var storage = bui.storage();
     // 右边出来对话框
     var uiDialogRight = bui.dialog({
@@ -10,18 +10,18 @@ bui.ready(function() {
     });
 
     var saveBuild;
-    try{
+    try {
         saveBuild = JSON.parse(storage.get("build"));
         $(".bui-bar-main").html(saveBuild.name);
-    }catch(e){
+    } catch (e) {
         uiDialogRight.open();
     };
 
-    $('#btnOpenFilter').on("click", function() {
+    $('#btnOpenFilter').on("click", function () {
         uiDialogRight.open();
     });
 
-    $(".top-class .span1").on("click", function() {
+    $(".top-class .span1").on("click", function () {
         $(this).addClass("active").siblings().removeClass("active");
         uiMainList.empty();
         // 重新初始化数据
@@ -29,13 +29,13 @@ bui.ready(function() {
             page: 1,
             data: {
                 "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
+                "code": $(".secord-class .bui-btn.selected").attr("data-value"),
+                "type": $(".top-class .active").attr("data-type"),
             }
         });
     });
 
-    $(".secord-class .bui-btn").on("click", function() {
+    $(".secord-class .bui-btn").on("click", function () {
         $(this).addClass("selected").siblings().removeClass("selected");
         uiMainList.empty();
         // 重新初始化数据
@@ -43,8 +43,8 @@ bui.ready(function() {
             page: 1,
             data: {
                 "keyWord": $("#mainSearchInput").val(),
-                "code":$(".secord-class .bui-btn.selected").attr("data-value"),
-                "type":$(".top-class .active").attr("data-type"),
+                "code": $(".secord-class .bui-btn.selected").attr("data-value"),
+                "type": $(".top-class .active").attr("data-type"),
             }
         });
     });
@@ -56,18 +56,18 @@ bui.ready(function() {
 
     var uiMainList;
 
-    if(saveBuild!=null){
+    if (saveBuild != null) {
         getMainData(saveBuild.id);
     }
 
-    function getMainData(buildId){
+    function getMainData(buildId) {
         uiMianSearchbar = bui.searchbar({
             id: "#mainsearchbar",
-            onInput: function(e, keyword) {
+            onInput: function (e, keyword) {
                 //实时搜索
                 // console.log(++n)
             },
-            onRemove: function(e, keyword) {
+            onRemove: function (e, keyword) {
                 uiMainList.empty();
                 // 重新初始化数据
                 uiMainList.init({
@@ -77,7 +77,7 @@ bui.ready(function() {
                     }
                 });
             },
-            callback: function(e, keyword) {
+            callback: function (e, keyword) {
                 if (uiMainList) {
                     //点击搜索清空数据
                     uiMainList.empty();
@@ -96,38 +96,39 @@ bui.ready(function() {
             id: "#mainScrollList",
             url: "/api/app/AppCompareData",
             pageSize: 10, // 当pageSize 小于返回的数据大小的时候,则认为是最后一页,接口返回的数据最好能返回空数组,而不是null
-            data: {buildId:buildId,
-                code:$(".secord-class .bui-btn.selected").attr("data-value"),
-                type:$(".top-class .active").attr("data-type")},
+            data: {
+                buildId: buildId,
+                code: $(".secord-class .bui-btn.selected").attr("data-value"),
+                type: $(".top-class .active").attr("data-type")
+            },
             //如果分页的字段名不一样,通过field重新定义
             field: {
                 page: "pageIndex",
                 size: "pageSize",
                 data: "data"
             },
-            callback: function(e) {
-            },
-            template: function(data) {
+            callback: function (e) {},
+            template: function (data) {
                 var html = "";
-                data.forEach(function(el, index) {
+                data.forEach(function (el, index) {
                     var tongbi = "-";
                     var yesVal = "-";
                     var todayVal = "-";
-                    if(el.currentValue!=undefined){
+                    if (el.currentValue != undefined) {
                         todayVal = el.currentValue;
                     }
-                    if(el.beforeValue!=undefined){
+                    if (el.beforeValue != undefined) {
                         yesVal = el.beforeValue;
                     }
-                    try{
-                        if(todayVal != "-" && yesVal != "-" && yesVal != 0){
-                            tongbi = (((el.currentValue-el.beforeValue)/el.beforeValue)*100).toFixed(2)+"%";
+                    try {
+                        if (todayVal != "-" && yesVal != "-" && yesVal != 0) {
+                            tongbi = (((el.currentValue - el.beforeValue) / el.beforeValue) * 100).toFixed(2) + "%";
                         }
-                    }catch(e){};
+                    } catch (e) {};
                     var codeStr = $(".secord-class .bui-btn.selected").attr("data-value");
                     var unitStr = "";
                     var consumeType = "用能";
-                    switch(codeStr){
+                    switch (codeStr) {
                         case "01000":
                             consumeType = "用电";
                             unitStr = "kW·h";
@@ -186,17 +187,17 @@ bui.ready(function() {
                 });
                 return html;
             },
-            onBeforeRefresh: function() {
+            onBeforeRefresh: function () {
                 console.log("brefore refresh")
             },
-            onBeforeLoad: function() {
+            onBeforeLoad: function () {
                 console.log("brefore load")
             },
-            onRefresh: function() {
+            onRefresh: function () {
                 // 刷新以后执行
                 console.log("refreshed")
             },
-            onLoad: function() {
+            onLoad: function () {
                 // 刷新以后执行
                 console.log("loaded")
             }
@@ -205,11 +206,11 @@ bui.ready(function() {
 
     var uiSearchbar = bui.searchbar({
         id: "#searchbar",
-        onInput: function(e, keyword) {
+        onInput: function (e, keyword) {
             //实时搜索
             // console.log(++n)
         },
-        onRemove: function(e, keyword) {
+        onRemove: function (e, keyword) {
             uiList.empty();
             // 重新初始化数据
             uiList.init({
@@ -219,7 +220,7 @@ bui.ready(function() {
                 }
             });
         },
-        callback: function(e, keyword) {
+        callback: function (e, keyword) {
             if (uiList) {
                 //点击搜索清空数据
                 uiList.empty();
@@ -245,21 +246,24 @@ bui.ready(function() {
             size: "pageSize",
             data: "data"
         },
-        callback: function(e) {
+        callback: function (e) {
             // e.target 为你当前点击的元素
             // e.currentTarget 为你当前点击的handle 整行
             var buildId = $(e.currentTarget).attr("data-id");
             var buildName = $(e.currentTarget).attr("data-name");
-            var clickBuild = {id:buildId,name:buildName};
+            var clickBuild = {
+                id: buildId,
+                name: buildName
+            };
             storage.set("build", JSON.stringify(clickBuild));
             storage.remove("curObj");
             $(".bui-bar-main").html(buildName);
             uiDialogRight.close();
             getMainData(buildId);
         },
-        template: function(data) {
+        template: function (data) {
             var html = "";
-            data.forEach(function(el, index) {
+            data.forEach(function (el, index) {
                 html += `<li class="bui-btn bui-box" data-id="${el.id}" data-name="${el.name}">
                              <div class="icon"><i class="icon-sub"></i></div>
                              <div class="span1">${el.name}</div>
@@ -267,23 +271,29 @@ bui.ready(function() {
             });
             return html;
         },
-        onBeforeRefresh: function() {
+        onBeforeRefresh: function () {
             console.log("brefore refresh")
         },
-        onBeforeLoad: function() {
+        onBeforeLoad: function () {
             console.log("brefore load")
         },
-        onRefresh: function() {
+        onRefresh: function () {
             // 刷新以后执行
             console.log("refreshed")
         },
-        onLoad: function() {
+        onLoad: function () {
             // 刷新以后执行
             console.log("loaded")
         }
     });
 });
 
-function jumpPage(curid,curname){
-    bui.load({ url: "trendStatistics.html", param: { curid: curid,curname:curname} });
+function jumpPage(curid, curname) {
+    bui.load({
+        url: "trendStatistics.html",
+        param: {
+            curid: curid,
+            curname: curname
+        }
+    });
 }

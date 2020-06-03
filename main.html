@@ -1,126 +1,135 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en-US">
-
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <title>能耗系统</title>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
     <link rel="stylesheet" href="lib/bui.css" />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/main.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bui-page bui-box-vertical">
-        <header>
-            <!-- 固定顶部区 -->
-            <div class="bui-bar">
-                <div class="bui-bar-left bui-bar-text">
-                    <a class="bui-btn" id="BackToAPP" onclick="bui.back();"><i class="icon-back"></i>返回</a>
-                </div>
-                <div class="bui-bar-main" data-i18n="energySystem"></div>
-                <div class="bui-bar-right bui-icon"><i id="btnOpenFilter" class="icon-more"></i></div>
-            </div>
-        </header>
-        <main>
-            <div class="content-block">
-                <div class="subtitle boldFont" data-i18n="energyAnalysis"></div>
-                <ul class="bui-nav-icon bui-fluid-3">
-                    <li class="bui-btn" id="jump1">
-                        <div class="bui-icon round"><i class="icon-over_01"></i></div>
-                        <div class="item-title" data-i18n="energyOverview"></div>
-                    </li>
-                    <li class="bui-btn" id="jump2">
-                        <div class="bui-icon round"><i class="icon-over_02"></i></div>
-                        <div class="item-title" data-i18n="trendStatistics"></div>
-                    </li>
-                    <li class="bui-btn" id="jump3">
-                        <div class="bui-icon round"><i class="icon-over_03"></i></div>
-                        <div class="item-title" data-i18n="YoYAnalysis"></div>
-                    </li>
-                    <li class="bui-btn" id="jump4">
-                        <div class="bui-icon round"><i class="icon-over_04"></i></div>
-                        <div class="item-title" data-i18n="energyRanking"></div>
-                    </li>
-                    <li class="bui-btn" id="jump5">
-                        <div class="bui-icon round"><i class="icon-over_05"></i></div>
-                        <div class="item-title" data-i18n="parameterQuery"></div>
-                    </li>
-                    <li class="bui-btn" id="jump6">
-                        <div class="bui-icon round"><i class="icon-over_06"></i></div>
-                        <div class="item-title" data-i18n="doubleRateStatistics"></div>
-                    </li>
-                    <!--                    <li class="bui-btn" id="jump7">-->
-                    <!--                        <div class="bui-icon round"><i class="icon-over_07"></i></div>-->
-                    <!--                        <div class="item-title" data-i18n="environmentalMonitoring"></div>-->
-                    <!--                    </li>-->
-                    <!--                    <li class="bui-btn" id="jump8">-->
-                    <!--                        <div class="bui-icon round"><i class="icon-over_08"></i></div>-->
-                    <!--                        <div class="item-title" data-i18n="transformerTempControl"></div>-->
-                    <!--                    </li>-->
-                    <li class="bui-btn" id="jump13">
-                        <div class="bui-icon round"><i class="icon-over_08"></i></div>
-                        <div class="item-title">3D建筑</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <div class="subtitle boldFont" data-i18n="buildingAnalysis"></div>
-                <ul class="bui-nav-icon bui-fluid-3">
-                    <li class="bui-btn" id="jump9">
-                        <div class="bui-icon round"><i class="icon-over_09"></i></div>
-                        <div class="item-title" data-i18n="architectureOverview"></div>
-                    </li>
-                    <li class="bui-btn" id="jump10">
-                        <div class="bui-icon round"><i class="icon-over_10"></i></div>
-                        <div class="item-title" data-i18n="TrendStatistics"></div>
-                    </li>
-                    <li class="bui-btn" id="jump11">
-                        <div class="bui-icon round"><i class="icon-over_11"></i></div>
-                        <div class="item-title" data-i18n="architecturalComparison"></div>
-                    </li>
-                    <li class="bui-btn" id="jump12">
-                        <div class="bui-icon round"><i class="icon-over_12"></i></div>
-                        <div class="item-title" data-i18n="energyShare"></div>
-                    </li>
-                </ul>
-            </div>
-        </main>
-        <!--    <footer>-->
-        <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
-        <!--    </footer>-->
+      <header>
+        <!-- 固定顶部区 -->
+        <div class="bui-bar">
+          <div class="bui-bar-left bui-bar-text">
+            <a class="bui-btn" id="BackToAPP" onclick="bui.back();"
+              ><i class="icon-back"></i>返回</a
+            >
+          </div>
+          <div class="bui-bar-main" data-i18n="energySystem"></div>
+          <div class="bui-bar-right bui-icon">
+            <i id="btnOpenFilter" class="icon-more"></i>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="content-block">
+          <div class="subtitle boldFont" data-i18n="energyAnalysis"></div>
+          <ul class="bui-nav-icon bui-fluid-3" id="analysisEnergy">
+            <li class="bui-btn" id="jump1">
+              <div class="bui-icon round"><i class="icon-over_01"></i></div>
+              <div class="item-title" data-i18n="energyOverview"></div>
+            </li>
+            <li class="bui-btn" id="jump2">
+              <div class="bui-icon round"><i class="icon-over_02"></i></div>
+              <div class="item-title" data-i18n="trendStatistics"></div>
+            </li>
+            <li class="bui-btn" id="jump3">
+              <div class="bui-icon round"><i class="icon-over_03"></i></div>
+              <div class="item-title" data-i18n="YoYAnalysis"></div>
+            </li>
+            <li class="bui-btn" id="jump4">
+              <div class="bui-icon round"><i class="icon-over_04"></i></div>
+              <div class="item-title" data-i18n="energyRanking"></div>
+            </li>
+            <li class="bui-btn" id="jump5">
+              <div class="bui-icon round"><i class="icon-over_05"></i></div>
+              <div class="item-title" data-i18n="parameterQuery"></div>
+            </li>
+            <li class="bui-btn" id="jump6">
+              <div class="bui-icon round"><i class="icon-over_06"></i></div>
+              <div class="item-title" data-i18n="doubleRateStatistics"></div>
+            </li>
+            <!--                    <li class="bui-btn" id="jump7">-->
+            <!--                        <div class="bui-icon round"><i class="icon-over_07"></i></div>-->
+            <!--                        <div class="item-title" data-i18n="environmentalMonitoring"></div>-->
+            <!--                    </li>-->
+            <!--                    <li class="bui-btn" id="jump8">-->
+            <!--                        <div class="bui-icon round"><i class="icon-over_08"></i></div>-->
+            <!--                        <div class="item-title" data-i18n="transformerTempControl"></div>-->
+            <!--                    </li>-->
+            <li class="bui-btn" id="jump13">
+              <div class="bui-icon round"><i class="icon-over_08"></i></div>
+              <div class="item-title">3D建筑</div>
+            </li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <div class="subtitle boldFont" data-i18n="buildingAnalysis"></div>
+          <ul class="bui-nav-icon bui-fluid-3" id="analysisBuliding">
+            <li class="bui-btn" id="jump9">
+              <div class="bui-icon round"><i class="icon-over_09"></i></div>
+              <div class="item-title" data-i18n="architectureOverview"></div>
+            </li>
+            <li class="bui-btn" id="jump10">
+              <div class="bui-icon round"><i class="icon-over_10"></i></div>
+              <div class="item-title" data-i18n="TrendStatistics"></div>
+            </li>
+            <li class="bui-btn" id="jump11">
+              <div class="bui-icon round"><i class="icon-over_11"></i></div>
+              <div class="item-title" data-i18n="architecturalComparison"></div>
+            </li>
+            <li class="bui-btn" id="jump12">
+              <div class="bui-icon round"><i class="icon-over_12"></i></div>
+              <div class="item-title" data-i18n="energyShare"></div>
+            </li>
+          </ul>
+        </div>
+      </main>
+      <!--    <footer>-->
+      <!--        &lt;!&ndash; 固定底部区 &ndash;&gt;-->
+      <!--    </footer>-->
     </div>
     <!-- 右边自定义对话框结构 -->
     <div id="dialogRight" class="bui-dialog" style="display:none;">
-        <div class="bui-dialog-head">
-            <!-- 搜索条控件结构 -->
-            <div id="searchbar" class="bui-searchbar bui-box">
-                <div class="span1">
-                    <div class="bui-input">
-                        <i class="icon-search"></i>
-                        <input id="searchInput" type="search" value="" placeholder="" data-placeholder="ui_searchTip" />
-                    </div>
-                </div>
-                <div class="btn-search" data-i18n="ui_search"></div>
+      <div class="bui-dialog-head">
+        <!-- 搜索条控件结构 -->
+        <div id="searchbar" class="bui-searchbar bui-box">
+          <div class="span1">
+            <div class="bui-input">
+              <i class="icon-search"></i>
+              <input
+                id="searchInput"
+                type="search"
+                value=""
+                placeholder=""
+                data-placeholder="ui_searchTip"
+              />
             </div>
+          </div>
+          <div class="btn-search" data-i18n="ui_search"></div>
         </div>
-        <div class="bui-dialog-main">
-            <div id="scrollList" class="bui-scroll">
-                <div class="bui-scroll-head"></div>
-                <div class="bui-scroll-main">
-                    <ul class="bui-list bui-list-thumbnail">
-                    </ul>
-                </div>
-                <div class="bui-scroll-foot"></div>
-            </div>
+      </div>
+      <div class="bui-dialog-main">
+        <div id="scrollList" class="bui-scroll">
+          <div class="bui-scroll-head"></div>
+          <div class="bui-scroll-main">
+            <ul class="bui-list bui-list-thumbnail"></ul>
+          </div>
+          <div class="bui-scroll-foot"></div>
         </div>
+      </div>
     </div>
     <script src="lib/zepto.js"></script>
     <script src="lib/bui.js"></script>
     <script src="lib/language.js"></script>
     <script src="lib/config.js"></script>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>

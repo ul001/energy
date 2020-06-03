@@ -1,5 +1,6 @@
 bui.ready(function () {
     var storage = bui.storage();
+
     // 右边出来对话框
     var uiDialogRight = bui.dialog({
         id: "#dialogRight",
@@ -123,11 +124,50 @@ bui.ready(function () {
         }
     });
 
+    //全界面隐藏
+    for (let index = 1; index < 14; index++) {
+        $("#jump" + index).hide();
+
+    }
+    //初始化界面开启
+    Substation.getDataByAjaxNoLoading("/getEnergyMenu", {
+
+        },
+        function (data) {
+            var EnergyVar = "";
+            var BuildVar = "";
+            if (data.hasOwnProperty('energyRootMenu')) {
+                var energyList = data.energyRootMenu;
+                if (energyList.length > 0) {
+                    for (let i = 0; i < energyList[0].nodes.length; i++) {
+                        for (let index = 0; index < energyList[0].nodes[i].nodes.length; index++) {
+                            var element = energyList[0].nodes[i].nodes[index];
+                            var nodeCode = element.fCode - 100;
+                            // var nodeCode = parseInt(element.fCode) - 100;
+                            $("#jump" + nodeCode).show();
+                        }
+                    }
+                } else {
+                    bui.hint({
+                        //请前往Web端"系统设置"-"角色管理"中进行配置。
+                        content: '未配置能耗管理界面,请前往Web端进行配置',
+                        // position: "center",
+                        // effect: "fadeInDown"
+                    });
+                }
+            }
+        },
+        function (errorcode) {
+
+        }
+    );
+
     $("#jump1").on("click", function () {
         bui.load({
             url: "energyOverview.html"
         });
     });
+
     $("#jump2").on("click", function () {
         bui.load({
             url: "trendStatistics.html"
@@ -184,5 +224,6 @@ bui.ready(function () {
             url: "3DBuild.html"
         });
     });
+
 
 });
