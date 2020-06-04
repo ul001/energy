@@ -127,8 +127,9 @@ bui.ready(function () {
     //全界面隐藏
     for (let index = 1; index < 14; index++) {
         $("#jump" + index).hide();
-
     }
+    $(".content-block").hide();
+
     //初始化界面开启
     Substation.getDataByAjaxNoLoading("/getEnergyMenu", {
 
@@ -140,6 +141,7 @@ bui.ready(function () {
                 var energyList = data.energyRootMenu;
                 if (energyList.length > 0) {
                     for (let i = 0; i < energyList[0].nodes.length; i++) {
+                        $($(".content-block")[i]).show();
                         for (let index = 0; index < energyList[0].nodes[i].nodes.length; index++) {
                             var element = energyList[0].nodes[i].nodes[index];
                             var nodeCode = element.fCode - 100;
